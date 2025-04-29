@@ -4,7 +4,7 @@ This interactive dashboard visualizes population changes in all U.S. counties be
 
 ## 🎨 Developed by **Jose Simon**
 
-## ✅ Fully deployed on [Render]([https://us-county-population-dashboard.onrender.com/])
+## ✅ Fully deployed on [Render](https://us-county-population-dashboard.onrender.com/)
 
 ## 🚀 Features
 
