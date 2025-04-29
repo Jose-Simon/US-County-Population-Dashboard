@@ -132,29 +132,35 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
 
     html.Div(id="summary-banner", style={
         'backgroundColor': '#003366',
-        'padding': '10px',
+        'padding': '5px',
         'display': 'flex',
         'justify-content': 'space-around',
         'color': 'white',
         'flex-wrap': 'wrap',
-        'margin-bottom': '10px'
+        'margin-bottom': '5px'
     }),
 
     dcc.Graph(id="choropleth-map", style={'height': '800px', 'width': '100%'}),
 
     html.Div(style={'display': 'flex', 'justify-content': 'space-around', 'margin-top': '20px', 'flex-wrap': 'wrap'}, children=[
         html.Div([
-            html.H4("Top 10 Growing Counties"),
-            dash_table.DataTable(id='top10-table', style_table={'font-family': 'Helvetica, Arial, sans-serif'},
-			style_cell={'fontFamily': 'Helvetica, Arial, sans-serif', 'fontSize': '14px', 'textAlign': 'center'},
-			style_header={'fontFamily': 'Helvetica, Arial, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'})
+            html.H4("Growing Counties"),
+            dash_table.DataTable(id='top10-table', style_table={'font-family': 'Helvetica, Arial, sans-serif', 'height': '400px', 'overflowY': 'auto'},
+			style_cell={'fontFamily': 'Helvetica, Arial, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
+			style_header={'fontFamily': 'Helvetica, Arial, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
+            style_cell_conditional=[
+                    {'if': {'column_id': 'County'}, 'textAlign': 'left'},
+            ])
         ], style={'width': '45%'}),
 
         html.Div([
-            html.H4("Bottom 10 Declining Counties"),
-            dash_table.DataTable(id='bottom10-table', style_table={'font-family': 'Helvetica, Arial, sans-serif'},
-			style_cell={'fontFamily': 'Helvetica, Arial, sans-serif', 'fontSize': '14px', 'textAlign': 'center'},
-			style_header={'fontFamily': 'Helvetica, Arial, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'})
+            html.H4("Declining Counties"),
+            dash_table.DataTable(id='bottom10-table', style_table={'font-family': 'Helvetica, Arial, sans-serif', 'height': '400px', 'overflowY': 'auto'},
+			style_cell={'fontFamily': 'Helvetica, Arial, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
+			style_header={'fontFamily': 'Helvetica, Arial, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
+            style_cell_conditional=[
+                    {'if': {'column_id': 'County'}, 'textAlign': 'left'},
+            ])
         ], style={'width': '45%'}),
     ])
 ])
