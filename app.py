@@ -19,8 +19,8 @@ start_time_program = time.time()
 # ----------------------------------------------------------------------------
 
 # File paths
-csv_path = r'C:\Users\InTeGeR\US Population Analysis\county_population_2000_2024_long.csv'
-geojson_path = r'C:\Users\InTeGeR\US Population Analysis\counties.geojson'
+csv_path = 'county_population_2000_2024_long.csv'
+geojson_path = 'counties.geojson'
 
 # 1. Load CSV with FIPS preserved as 5-digit string
 df = pd.read_csv(csv_path, dtype={'FIPS': str})
@@ -53,6 +53,7 @@ population_groups = [
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = Dash(__name__, external_stylesheets=external_stylesheets)
+server = app.server
 
 # ----------------------------------------------------------------------------
 # Layout
@@ -294,7 +295,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
 # ----------------------------------------------------------------------------
 # Run the app
 # ----------------------------------------------------------------------------
-app.run(debug=True)
+app.run
 
 # ----------------------------------------------------------------------------
 # End of the program
