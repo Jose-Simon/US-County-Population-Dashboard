@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: us-county-population-dashboard
+    name: US-County-Population-Dashboard
     env: python
     buildCommand: ""
     startCommand: gunicorn app:server
