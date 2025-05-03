@@ -47,7 +47,7 @@ population_groups = [
     {"label": "10K-50K", "value": "5"},
     {"label": "5K-10K", "value": "6"},
     {"label": "1K-5K", "value": "7"},
-    {"label": "<1K]", "value": "8"}
+    {"label": "<1K", "value": "8"}
 ]
 
 # ----------------------------------------------------------------------------
@@ -217,7 +217,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     labels = ['8', '7', '6', '5', '4', '3', '2', '1']
     merged['PopGroup'] = pd.cut(merged['Population_start'], bins=bins, labels=labels)
     if selected_group:
-        merged = merged[merged['PopGroup'] == selected_group]
+        merged = merged[merged['PopGroup'].isin(selected_group)]
 
     total_start_pop = merged['Population_start'].sum()
     total_end_pop = merged['Population_end'].sum()
