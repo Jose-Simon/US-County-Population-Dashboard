@@ -283,14 +283,17 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     "</span><extra></extra>"
 )
 
+    vmin = merged[metric_type].quantile(0.1)
+    vmax = merged[metric_type].quantile(0.9)
+    
     fig = px.choropleth(
         merged,
         geojson=counties_geojson,
         locations='FIPS',
         color=metric_type,
         featureidkey="properties.GEOID",
-        color_continuous_scale='RdBu',
-        range_color=[-merged[metric_type].abs().max(), merged[metric_type].abs().max()],
+        color_continuous_scale='RdYlBu',
+        range_color=[vmin, vmax],
         scope="usa",
         labels={metric_type: 'Change'}
     )
