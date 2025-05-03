@@ -88,7 +88,7 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
                 clearable=False,
                 style={'backgroundColor': 'white', 'color': 'black', 'fontSize': '16px'}
             )
-        ], style={'width': '10%', 'minWidth': '150px'}),
+        ], style={'width': '10%', 'minWidth': '150px', 'marginRight': '10px'}),
 
         html.Div([
             html.Label("End Year", style={'font-weight': 'bold'}),
@@ -99,7 +99,7 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
                 clearable=False,
                 style={'backgroundColor': 'white', 'color': 'black', 'fontSize': '16px'}
             )
-        ], style={'width': '10%', 'minWidth': '150px'}),
+        ], style={'width': '10%', 'minWidth': '150px', 'marginRight': '10px'}),
 
         html.Div([
             html.Label("Metric", style={'font-weight': 'bold'}),
@@ -112,7 +112,7 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
                 value='percent_diff',
                 labelStyle={'display': 'block', 'margin-top': '5px'}
             )
-        ], style={'width': '10%', 'minWidth': '150px'}),
+        ], style={'width': '10%', 'minWidth': '150px', 'marginRight': '10px'}),
 
         html.Div([
             html.Label("State Filter", style={'font-weight': 'bold'}),
@@ -123,7 +123,7 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
                 placeholder="Select states...",
                 style={'backgroundColor': 'white', 'color': 'black', 'fontSize': '16px'}
             )
-        ], style={'width': '25%', 'minWidth': '200px'}),
+        ], style={'width': '25%', 'minWidth': '200px', 'marginRight': '10px'}),
 
         html.Div([
             html.Label("County Filter", style={'font-weight': 'bold'}),
@@ -134,7 +134,7 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
                 placeholder="Select counties...",
                 style={'backgroundColor': 'white', 'color': 'black', 'fontSize': '16px'}
             )
-        ], style={'width': '25%', 'minWidth': '200px'}),
+        ], style={'width': '25%', 'minWidth': '200px', 'marginRight': '10px'}),
 		
 		html.Div([
             html.Label("Population Group", style={'font-weight': 'bold'}),
@@ -220,6 +220,13 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     pop_end = dff[dff['Year'] == end_year][['FIPS', 'Population']]
     merged = pd.merge(pop_start, pop_end, on='FIPS', suffixes=('_start', '_end'))
     merged = merged.merge(dff[['FIPS', 'State', 'County']].drop_duplicates(), on='FIPS')
+
+    bins = [-1, 4999, 9999, 19999, 29999, 49999, 99999, 499999, float('inf')]
+    labels = ['8', '7', '6', '5', '4', '3', '2', '1']
+    merged['PopGroup'] = pd.cut(merged['Population_start'], bins=bins, labels=labels)
+    if selected_group:
+        merged = merged[merged['PopGroup'].isin(selected_group)]
+
     merged['numeric_diff'] = merged['Population_end'] - merged['Population_start']
     merged['percent_diff'] = (merged['numeric_diff'] / merged['Population_start']) * 100
     merged['county_state'] = merged['County'] + ", " + merged['State']
@@ -230,12 +237,6 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     merged['Population_end_rank'] = merged['Population_end'].rank(ascending=False, method='min').astype(int)
     merged['numeric_diff_rank'] = merged['numeric_diff'].rank(ascending=False, method='min').astype(int)
     merged['percent_diff_rank'] = merged['percent_diff'].rank(ascending=False, method='min').astype(int)
-	
-    bins = [-1, 4999, 9999, 19999, 29999, 49999, 99999, 499999, float('inf')]
-    labels = ['8', '7', '6', '5', '4', '3', '2', '1']
-    merged['PopGroup'] = pd.cut(merged['Population_start'], bins=bins, labels=labels)
-    if selected_group:
-        merged = merged[merged['PopGroup'].isin(selected_group)]
 
     total_start_pop = merged['Population_start'].sum()
     total_end_pop = merged['Population_end'].sum()
