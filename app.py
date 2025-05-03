@@ -40,11 +40,14 @@ state_options = [{'label': state, 'value': state} for state in sorted(df['State'
 
 # 5. Define Population Groups
 population_groups = [
-    {"label": "Very High [1.0M+]", "value": "Very High"},
-    {"label": "High [500K-999K]", "value": "High"},
-    {"label": "Medium [100K-499K]", "value": "Medium"},
-    {"label": "Low [50K-99K]", "value": "Low"},
-    {"label": "Very Low [<50K]", "value": "Very Low"}
+    {"label": "1M+", "value": "1"},
+    {"label": "500K-1M", "value": "2"},
+    {"label": "100K-500K", "value": "3"},
+    {"label": "50K-100K", "value": "4"},
+    {"label": "10K-50K", "value": "5"},
+    {"label": "5K-10K", "value": "6"},
+    {"label": "1K-5K", "value": "7"},
+    {"label": "<1K]", "value": "8"}
 ]
 
 # ----------------------------------------------------------------------------
@@ -123,6 +126,7 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
             dcc.Dropdown(
                 id='population-group-dropdown',
                 options=population_groups,
+                multi=True,
                 placeholder="Select Group...",
                 clearable=True,
                 style={'backgroundColor': 'white', 'color': 'black', 'fontSize': '16px'}
@@ -149,7 +153,7 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
 			style_cell={'fontFamily': 'Helvetica, Arial, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
 			style_header={'fontFamily': 'Helvetica, Arial, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
             style_cell_conditional=[
-                    {'if': {'column_id': 'County'}, 'textAlign': 'left'},
+                {'if': {'column_id': 'county_state'}, 'textAlign': 'left'},
             ])
         ], style={'width': '45%'}),
 
@@ -159,7 +163,7 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
 			style_cell={'fontFamily': 'Helvetica, Arial, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
 			style_header={'fontFamily': 'Helvetica, Arial, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
             style_cell_conditional=[
-                    {'if': {'column_id': 'County'}, 'textAlign': 'left'},
+                {'if': {'column_id': 'county_state'}, 'textAlign': 'left'},
             ])
         ], style={'width': '45%'}),
     ])
@@ -209,8 +213,8 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     merged['numeric_diff_rank'] = merged['numeric_diff'].rank(ascending=False, method='min').astype(int)
     merged['percent_diff_rank'] = merged['percent_diff'].rank(ascending=False, method='min').astype(int)
 	
-    bins = [-1, 49999, 99999, 499999, 999999, float('inf')]
-    labels = ['Very Low', 'Low', 'Medium', 'High', 'Very High']
+    bins = [-1, 999, 4999, 9999, 49999, 99999, 499999, 999999, float('inf')]
+    labels = ['8', '7', '6', '5', '4', '3', '2', '1']
     merged['PopGroup'] = pd.cut(merged['Population_start'], bins=bins, labels=labels)
     if selected_group:
         merged = merged[merged['PopGroup'] == selected_group]
