@@ -77,6 +77,7 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
         'flex-wrap': 'wrap',
         'justify-content': 'space-around',
         'color': 'white',
+        'gap': '10px',
         'margin-bottom': '10px'
     }, children=[
         html.Div([
@@ -88,7 +89,7 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
                 clearable=False,
                 style={'backgroundColor': 'white', 'color': 'black', 'fontSize': '16px'}
             )
-        ], style={'width': '10%', 'minWidth': '150px', 'marginRight': '10px'}),
+        ], style={'width': '10%', 'minWidth': '150px'}),
 
         html.Div([
             html.Label("End Year", style={'font-weight': 'bold'}),
@@ -99,7 +100,7 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
                 clearable=False,
                 style={'backgroundColor': 'white', 'color': 'black', 'fontSize': '16px'}
             )
-        ], style={'width': '10%', 'minWidth': '150px', 'marginRight': '10px'}),
+        ], style={'width': '10%', 'minWidth': '150px'}),
 
         html.Div([
             html.Label("Metric", style={'font-weight': 'bold'}),
@@ -112,7 +113,7 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
                 value='percent_diff',
                 labelStyle={'display': 'block', 'margin-top': '5px'}
             )
-        ], style={'width': '10%', 'minWidth': '150px', 'marginRight': '10px'}),
+        ], style={'width': '10%', 'minWidth': '150px'}),
 
         html.Div([
             html.Label("State Filter", style={'font-weight': 'bold'}),
@@ -123,7 +124,7 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
                 placeholder="Select states...",
                 style={'backgroundColor': 'white', 'color': 'black', 'fontSize': '16px'}
             )
-        ], style={'width': '25%', 'minWidth': '200px', 'marginRight': '10px'}),
+        ], style={'width': '20%', 'minWidth': '200px'}),
 
         html.Div([
             html.Label("County Filter", style={'font-weight': 'bold'}),
@@ -134,7 +135,7 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
                 placeholder="Select counties...",
                 style={'backgroundColor': 'white', 'color': 'black', 'fontSize': '16px'}
             )
-        ], style={'width': '25%', 'minWidth': '200px', 'marginRight': '10px'}),
+        ], style={'width': '20%', 'minWidth': '200px'}),
 		
 		html.Div([
             html.Label("Population Group", style={'font-weight': 'bold'}),
@@ -278,7 +279,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     "%{customdata[10]} Population: %{customdata[1]:,} (Rank %{customdata[5]} of %{customdata[9]})<br>"
     "%{customdata[11]} Population: %{customdata[2]:,} (Rank %{customdata[6]} of %{customdata[9]})<br>"
     "Change: %{customdata[3]:,} (Rank %{customdata[7]} of %{customdata[9]})<br>"
-    "Change %: %{customdata[4]:.2f}%  (Rank %{customdata[8]} of %{customdata[9]})"
+    "Change %: %{customdata[4]:.2f}% (Rank %{customdata[8]} of %{customdata[9]})"
     "</span><extra></extra>"
 )
 
