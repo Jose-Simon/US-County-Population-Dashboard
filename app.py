@@ -44,10 +44,12 @@ population_groups = [
     {"label": "500K-1M", "value": "2"},
     {"label": "100K-500K", "value": "3"},
     {"label": "50K-100K", "value": "4"},
-    {"label": "10K-50K", "value": "5"},
-    {"label": "5K-10K", "value": "6"},
-    {"label": "1K-5K", "value": "7"},
-    {"label": "<1K", "value": "8"}
+    {"label": "30K-50K", "value": "5"},
+    {"label": "20K-30K", "value": "6"},
+    {"label": "10K-20K", "value": "7"},
+    {"label": "5K-10K", "value": "8"},
+    {"label": "1K-5K", "value": "9"},
+    {"label": "<1K", "value": "10"}
 ]
 
 # ----------------------------------------------------------------------------
@@ -213,8 +215,8 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     merged['numeric_diff_rank'] = merged['numeric_diff'].rank(ascending=False, method='min').astype(int)
     merged['percent_diff_rank'] = merged['percent_diff'].rank(ascending=False, method='min').astype(int)
 	
-    bins = [-1, 999, 4999, 9999, 49999, 99999, 499999, 999999, float('inf')]
-    labels = ['8', '7', '6', '5', '4', '3', '2', '1']
+    bins = [-1, 999, 4999, 9999, 19999, 29999, 49999, 99999, 499999, 999999, float('inf')]
+    labels = ['10', '9', '8', '7', '6', '5', '4', '3', '2', '1']
     merged['PopGroup'] = pd.cut(merged['Population_start'], bins=bins, labels=labels)
     if selected_group:
         merged = merged[merged['PopGroup'].isin(selected_group)]
