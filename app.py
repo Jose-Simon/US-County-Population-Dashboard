@@ -283,8 +283,8 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     "</span><extra></extra>"
 )
 
-    vmin = merged[metric_type].quantile(0.1)
-    vmax = merged[metric_type].quantile(0.9)
+    vmin = merged[metric_type].quantile(0.05)
+    vmax = merged[metric_type].quantile(0.95)
     
     fig = px.choropleth(
         merged,
