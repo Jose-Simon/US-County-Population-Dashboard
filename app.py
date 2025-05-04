@@ -81,6 +81,19 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
         'margin-bottom': '10px'
     }, children=[
         html.Div([
+            html.Label("Metric", style={'font-weight': 'bold'}),
+            dcc.RadioItems(
+                id='metric-radio',
+                options=[
+                    {'label': 'Absolute Change', 'value': 'numeric_diff'},
+                    {'label': 'Percentage Change', 'value': 'percent_diff'}
+                ],
+                value='percent_diff',
+                labelStyle={'display': 'block', 'margin-top': '5px'}
+            )
+        ], style={'width': '10%', 'minWidth': '150px'}),
+
+        html.Div([
             html.Label("Start Year", style={'font-weight': 'bold'}),
             dcc.Dropdown(
                 id='start-year-dropdown',
@@ -99,19 +112,6 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
                 value=2024,
                 clearable=False,
                 style={'backgroundColor': 'white', 'color': 'black', 'fontSize': '16px'}
-            )
-        ], style={'width': '10%', 'minWidth': '150px'}),
-
-        html.Div([
-            html.Label("Metric", style={'font-weight': 'bold'}),
-            dcc.RadioItems(
-                id='metric-radio',
-                options=[
-                    {'label': 'Absolute Change', 'value': 'numeric_diff'},
-                    {'label': 'Percentage Change', 'value': 'percent_diff'}
-                ],
-                value='percent_diff',
-                labelStyle={'display': 'block', 'margin-top': '5px'}
             )
         ], style={'width': '10%', 'minWidth': '150px'}),
 
@@ -243,6 +243,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
 
     total_start_pop = merged['Population_start'].sum()
     total_end_pop = merged['Population_end'].sum()
+    pop_change = total_end_pop - total_start_pop
     percent_change_total = (total_end_pop - total_start_pop) / total_start_pop * 100
     county_count = len(merged)
     increasing_count = (merged[metric_type] > 0).sum()
@@ -256,35 +257,34 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         color = "red"
 
     summary = [
-        html.Div([
-            html.H4(f"{start_year} Population", style={'text-align': 'center'}),
-            html.H2(f"{total_start_pop:,}", style={'text-align': 'center'})
-        ]),
-        html.Div([
-            html.H4(f"{end_year} Population", style={'text-align': 'center'}),
-            html.H2(f"{total_end_pop:,}", style={'text-align': 'center'})
-        ]),
-        html.Div([
-            html.H4("Population Change", style={'text-align': 'center'}),
-            html.H2([
-                f"{percent_change_total:.2f}% ",
-                html.Span(arrow, style={'color': color, 'font-size': '30px'})
-            ], style={'text-align': 'center'})
-        ]),
-        html.Div([
-            html.H4("Counties Displayed", style={'text-align': 'center'}),
-            html.H2(f"{county_count:,}", style={'text-align': 'center'})
-        ]),
-        html.Div([
-            html.H4("County Trends", style={'text-align': 'center'}),
-            html.H2([
-                f"{increasing_count:,} ",
-                html.Span("▲", style={'color': 'green'}),
-                " / ",
-                f"{decreasing_count:,} ",
-                html.Span("▼", style={'color': 'red'})
-            ], style={'text-align': 'center'})
-        ])
+    html.Div([
+        html.H4(f"{start_year} Population", style={'text-align': 'center'}),
+        html.H2(f"{total_start_pop:,}", style={'text-align': 'center'})
+    ]),
+    html.Div([
+        html.H4(f"{end_year} Population", style={'text-align': 'center'}),
+        html.H2(f"{total_end_pop:,}", style={'text-align': 'center'})
+    ]),
+    html.Div([
+        html.H4("Population Change", style={'text-align': 'center'}),
+        html.H2([
+            f"{pop_change} ({percent_change_total:.2f}% ",
+            html.Span(arrow, style={'color': color, 'font-size': '30px'}),
+            ")"
+        ], style={'text-align': 'center'})
+    ]),
+    html.Div([
+        html.H4("Counties Displayed", style={'text-align': 'center'}),
+        html.H2([
+            f"{county_count:,} (",
+            f"{increasing_count:,} ",
+            html.Span("▲", style={'color': 'green'}),
+            " / ",
+            f"{decreasing_count:,} ",
+            html.Span("▼", style={'color': 'red'}),
+            ")"
+        ], style={'text-align': 'center'})
+    ])
     ]
 
     hovertemplate = (
@@ -305,7 +305,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         locations='FIPS',
         color=metric_type,
         featureidkey="properties.GEOID",
-        color_continuous_scale='RdYlBu',
+        color_continuous_scale='RdBu', #RdYlBu
         range_color=[-q_max, q_max],
         scope="usa",
         labels={metric_type: 'Change'}
