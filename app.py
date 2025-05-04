@@ -29,6 +29,10 @@ df['FIPS'] = df['FIPS'].str.zfill(5)
 # 2. Immediately drop rows where any of FIPS, State, County, Year, Population is missing
 df = df.dropna(subset=['FIPS', 'State', 'County', 'Year', 'Population'])
 
+county_to_fips = df[['FIPS', 'County', 'State']].drop_duplicates()
+county_to_fips['county_state'] = county_to_fips['County'] + ", " + county_to_fips['State']
+county_state_to_fips_map = dict(zip(county_to_fips['county_state'], county_to_fips['FIPS']))
+
 # 3. Load GeoJSON
 with open(geojson_path, 'r') as f:
     counties_geojson = json.load(f)
@@ -160,7 +164,29 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
         'margin-bottom': '5px'
     }),
 
-    dcc.Graph(id="choropleth-map", style={'height': '800px', 'width': '100%'}),
+    html.Div(style={
+        'display': 'flex',
+        'justify-content': 'space-between',
+        'alignItems': 'flex-start',
+        'margin-bottom': '20px'
+    }, children=[
+        dcc.Graph(
+            id="choropleth-map",
+            style={'height': '800px', 'width': '74%'}
+        ),
+        html.Div(id='county-detail-pane', style={
+            'width': '24%',
+            'backgroundColor': '#f8f9fa',
+            'padding': '15px',
+            'border': '1px solid #ccc',
+            'borderRadius': '6px',
+            'fontFamily': 'Helvetica, Arial, sans-serif',
+            'fontSize': '14px',
+            'color': '#333',
+            'maxHeight': '800px',
+            'overflowY': 'auto'
+        })
+    ]),
 
     html.Div(style={'display': 'flex', 'justify-content': 'space-around', 'margin-top': '20px', 'flex-wrap': 'wrap'}, children=[
         html.Div([
@@ -268,7 +294,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     html.Div([
         html.H4("Population Change", style={'text-align': 'center'}),
         html.H2([
-            f"{pop_change} ({percent_change_total:.2f}% ",
+            f"{pop_change:,} ({percent_change_total:.2f}% ",
             html.Span(arrow, style={'color': color, 'font-size': '30px'}),
             ")"
         ], style={'text-align': 'center'})
@@ -277,10 +303,10 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         html.H4("Counties Displayed", style={'text-align': 'center'}),
         html.H2([
             f"{county_count:,} (",
-            f"{increasing_count:,} ",
+            f"{increasing_count:,}",
             html.Span("▲", style={'color': 'green'}),
-            " / ",
-            f"{decreasing_count:,} ",
+            "   ",
+            f"{decreasing_count:,}",
             html.Span("▼", style={'color': 'red'}),
             ")"
         ], style={'text-align': 'center'})
@@ -344,6 +370,74 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     bottomcnt['percent_diff'] = bottomcnt['percent_diff'].apply(lambda x: f"{x:.2f}%")
 
     return summary, fig, topcnt.to_dict('records'), columns, bottomcnt.to_dict('records'), columns
+
+@app.callback(
+    Output('county-detail-pane', 'children'),
+    Input('choropleth-map', 'clickData'),
+    Input('topcnt-table', 'active_cell'),
+    State('topcnt-table', 'data'),
+    Input('bottomcnt-table', 'active_cell'),
+    State('bottomcnt-table', 'data'),
+    Input('start-year-dropdown', 'value'),
+    Input('end-year-dropdown', 'value')
+)
+def update_county_detail(map_click, top_cell, top_data, bottom_cell, bottom_data, start_year, end_year):
+    fips = None
+    label = None
+
+    if map_click:
+        fips = map_click['points'][0]['location']
+    elif top_cell and top_data:
+        label = top_data[top_cell['row']]['county_state']
+    elif bottom_cell and bottom_data:
+        label = bottom_data[bottom_cell['row']]['county_state']
+
+    if label:
+        # Extract FIPS from label if needed using mapping
+        fips = county_state_to_fips_map.get(label)
+
+    if not fips:
+        return "Click on a county in the map or table to view details."
+
+    dff = df[df['FIPS'] == fips].sort_values(by='Year')
+    dff = dff[(dff['Year'] >= start_year) & (dff['Year'] <= end_year)].copy()
+
+    if dff.empty:
+        return "No data available for selected county."
+
+    county_name = f"{dff.iloc[0]['County']} County, {dff.iloc[0]['State']}"
+
+    start_pop = dff.iloc[0]['Population']
+    dff['Change %'] = 100 * (dff['Population'] - start_pop) / start_pop
+    dff['Year Label'] = dff['Year'].astype(str)
+
+    bar_fig = go.Figure()
+    bar_fig.add_trace(go.Bar(
+        x=dff['Year Label'],
+        y=dff['Change %'],
+        marker_color='teal',
+        hovertemplate='%{x}: %{y:.2f}%<extra></extra>'
+    ))
+    bar_fig.update_layout(
+        title=f"Population % Change from {start_year}",
+        height=300,
+        margin=dict(l=10, r=10, t=30, b=10),
+        yaxis=dict(title='% Change'),
+        xaxis=dict(title='Year'),
+    )
+
+    latest_row = dff.iloc[-1]
+    pop_latest = latest_row['Population']
+    change_pct = dff.iloc[-1]['Change %']
+    change_raw = pop_latest - start_pop
+
+    return [
+        html.H4(county_name, style={'marginBottom': '10px'}),
+        html.P(f"{start_year} Population: {start_pop:,}"),
+        html.P(f"{end_year} Population: {pop_latest:,}"),
+        html.P(f"Change: {change_raw:+,} ({change_pct:+.2f}%)"),
+        dcc.Graph(figure=bar_fig, config={'displayModeBar': False})
+    ]
 
 # ----------------------------------------------------------------------------
 # Run the app
