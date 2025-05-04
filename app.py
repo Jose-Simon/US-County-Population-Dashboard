@@ -277,9 +277,14 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         ]),
         html.Div([
             html.H4("County Trends", style={'text-align': 'center'}),
-            html.H2(f"{increasing_count:,} ↑ / {decreasing_count:,} ↓", style={'text-align': 'center'})
+            html.H2([
+                f"{increasing_count:,} ",
+                html.Span("▲", style={'color': 'green'}),
+                " / ",
+                f"{decreasing_count:,} ",
+                html.Span("▼", style={'color': 'red'})
+            ], style={'text-align': 'center'})
         ])
-
     ]
 
     hovertemplate = (
@@ -317,8 +322,8 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
 
     growing = merged[merged[metric_type] > 0].copy()
     declining = merged[merged[metric_type] < 0].copy()
-    topcnt = growing.nlargest(min(50, len(growing)), metric_type)
-    bottomcnt = declining.nsmallest(min(50, len(declining)), metric_type)
+    topcnt = growing.nlargest(min(100, len(growing)), metric_type)
+    bottomcnt = declining.nsmallest(min(100, len(declining)), metric_type)
     topcnt.insert(0, '', range(1, len(topcnt) + 1))
     bottomcnt.insert(0, '', range(1, len(bottomcnt) + 1))
 
