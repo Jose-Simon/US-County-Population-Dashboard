@@ -165,7 +165,8 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
     html.Div(style={'display': 'flex', 'justify-content': 'space-around', 'margin-top': '20px', 'flex-wrap': 'wrap'}, children=[
         html.Div([
             html.H4("Growing Counties"),
-            dash_table.DataTable(id='top10-table', style_table={'font-family': 'Helvetica, Arial, sans-serif', 'height': '350px', 'overflowY': 'auto'},
+            dash_table.DataTable(id='topcnt-table', fixed_rows={'headers': True},
+            style_table={'font-family': 'Helvetica, Arial, sans-serif', 'height': '350px', 'overflowY': 'auto'},
 			style_cell={'fontFamily': 'Helvetica, Arial, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
 			style_header={'fontFamily': 'Helvetica, Arial, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
             style_cell_conditional=[
@@ -175,7 +176,8 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
 
         html.Div([
             html.H4("Declining Counties"),
-            dash_table.DataTable(id='bottom10-table', style_table={'font-family': 'Helvetica, Arial, sans-serif', 'height': '350px', 'overflowY': 'auto'},
+            dash_table.DataTable(id='bottomcnt-table',  fixed_rows={'headers': True},
+            style_table={'font-family': 'Helvetica, Arial, sans-serif', 'height': '350px', 'overflowY': 'auto'},
 			style_cell={'fontFamily': 'Helvetica, Arial, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
 			style_header={'fontFamily': 'Helvetica, Arial, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
             style_cell_conditional=[
@@ -200,10 +202,10 @@ def update_title(start_year, end_year):
 @app.callback(
     Output('summary-banner', 'children'),
     Output('choropleth-map', 'figure'),
-    Output('top10-table', 'data'),
-    Output('top10-table', 'columns'),
-    Output('bottom10-table', 'data'),
-    Output('bottom10-table', 'columns'),
+    Output('topcnt-table', 'data'),
+    Output('topcnt-table', 'columns'),
+    Output('bottomcnt-table', 'data'),
+    Output('bottomcnt-table', 'columns'),
     Input('start-year-dropdown', 'value'),
     Input('end-year-dropdown', 'value'),
     Input('metric-radio', 'value'),
@@ -243,6 +245,8 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     total_end_pop = merged['Population_end'].sum()
     percent_change_total = (total_end_pop - total_start_pop) / total_start_pop * 100
     county_count = len(merged)
+    increasing_count = (merged[metric_type] > 0).sum()
+    decreasing_count = (merged[metric_type] <= 0).sum()
 
     if percent_change_total >= 0:
         arrow = "\u25B2"
@@ -270,7 +274,12 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         html.Div([
             html.H4("Counties Displayed", style={'text-align': 'center'}),
             html.H2(f"{county_count:,}", style={'text-align': 'center'})
+        ]),
+        html.Div([
+            html.H4("County Trends", style={'text-align': 'center'}),
+            html.H2(f"{increasing_count:,} ↑ / {decreasing_count:,} ↓", style={'text-align': 'center'})
         ])
+
     ]
 
     hovertemplate = (
@@ -283,8 +292,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     "</span><extra></extra>"
 )
 
-    vmin = merged[metric_type].quantile(0.05)
-    vmax = merged[metric_type].quantile(0.95)
+    q_max = max(abs(merged[metric_type].quantile(0.05)),abs(merged[metric_type].quantile(0.95)))
     
     fig = px.choropleth(
         merged,
@@ -293,7 +301,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         color=metric_type,
         featureidkey="properties.GEOID",
         color_continuous_scale='RdYlBu',
-        range_color=[vmin, vmax],
+        range_color=[-q_max, q_max],
         scope="usa",
         labels={metric_type: 'Change'}
     )
@@ -309,10 +317,10 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
 
     growing = merged[merged[metric_type] > 0].copy()
     declining = merged[merged[metric_type] < 0].copy()
-    top10 = growing.nlargest(min(10, len(growing)), metric_type)
-    bottom10 = declining.nsmallest(min(10, len(declining)), metric_type)
-    top10.insert(0, '', range(1, len(top10) + 1))
-    bottom10.insert(0, '', range(1, len(bottom10) + 1))
+    topcnt = growing.nlargest(min(50, len(growing)), metric_type)
+    bottomcnt = declining.nsmallest(min(50, len(declining)), metric_type)
+    topcnt.insert(0, '', range(1, len(topcnt) + 1))
+    bottomcnt.insert(0, '', range(1, len(bottomcnt) + 1))
 
     columns = [
         {"name": "", "id": ""},
@@ -324,13 +332,13 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     ]
 
     for col in ['Population_start', 'Population_end', 'numeric_diff']:
-        top10[col] = top10[col].apply(lambda x: f"{int(x):,}")
-        bottom10[col] = bottom10[col].apply(lambda x: f"{int(x):,}")
+        topcnt[col] = topcnt[col].apply(lambda x: f"{int(x):,}")
+        bottomcnt[col] = bottomcnt[col].apply(lambda x: f"{int(x):,}")
 
-    top10['percent_diff'] = top10['percent_diff'].apply(lambda x: f"{x:.2f}%")
-    bottom10['percent_diff'] = bottom10['percent_diff'].apply(lambda x: f"{x:.2f}%")
+    topcnt['percent_diff'] = topcnt['percent_diff'].apply(lambda x: f"{x:.2f}%")
+    bottomcnt['percent_diff'] = bottomcnt['percent_diff'].apply(lambda x: f"{x:.2f}%")
 
-    return summary, fig, top10.to_dict('records'), columns, bottom10.to_dict('records'), columns
+    return summary, fig, topcnt.to_dict('records'), columns, bottomcnt.to_dict('records'), columns
 
 # ----------------------------------------------------------------------------
 # Run the app
