@@ -285,12 +285,12 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     hovertemplate = (
     "<b>%{customdata[0]}</b><br><br>"
     "<span style='font-size: 12px;'>"
-    "%{customdata[10]} Population: %{customdata[1]:,} (Rank %{customdata[5]} of %{customdata[9]})<br>"
-    "%{customdata[11]} Population: %{customdata[2]:,} (Rank %{customdata[6]} of %{customdata[9]})<br>"
-    "Change: %{customdata[3]:,} (Rank %{customdata[7]} of %{customdata[9]})<br>"
-    "Change %: %{customdata[4]:.2f}% (Rank %{customdata[8]} of %{customdata[9]})"
+    "%{customdata[10]} Population: <b>%{customdata[1]:,}</b> <span style='font-size: 10px; color: gray;'>(Rank %{customdata[5]} of %{customdata[9]})</span><br>"
+    "%{customdata[11]} Population: <b>%{customdata[2]:,}</b> <span style='font-size: 10px; color: gray;'>(Rank %{customdata[6]} of %{customdata[9]})</span><br>"
+    "Change: <b>%{customdata[3]:,}</b> <span style='font-size: 10px; color: gray;'>(Rank %{customdata[7]} of %{customdata[9]})</span><br>"
+    "Change %: <b>%{customdata[4]:.2f}%</b> <span style='font-size: 10px; color: gray;'>(Rank %{customdata[8]} of %{customdata[9]})</span>"
     "</span><extra></extra>"
-)
+    )
 
     q_max = max(abs(merged[metric_type].quantile(0.05)),abs(merged[metric_type].quantile(0.95)))
     
