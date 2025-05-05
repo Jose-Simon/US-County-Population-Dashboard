@@ -314,13 +314,13 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     ]
 
     hovertemplate = (
-    "<b>%{customdata[0]}</b><br><br>"
-    "<span style='font-size: 12px;'>"
-    "%{customdata[10]} Population: <b>%{customdata[1]:,}</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[5]}</b> of %{customdata[9]})</span><br>"
-    "%{customdata[11]} Population: <b>%{customdata[2]:,}</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[6]}</b>)</span><br>"
-    "Change: <b>%{customdata[3]:,}</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[7]}</b>)</span><br>"
-    "Change %: <b>%{customdata[4]:.2f}%</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[8]}</b>)</span>"
-    "</span><extra></extra>"
+        "<b>%{customdata[0]}</b><br><br>"
+        "<span style='font-size: 12px;'>"
+        "%{customdata[10]} Population: <b>%{customdata[1]:,}</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[5]}</b> of %{customdata[9]})</span><br>"
+        "%{customdata[11]} Population: <b>%{customdata[2]:,}</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[6]}</b>)</span><br>"
+        "Change: <b>%{customdata[3]:,}</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[7]}</b>)</span><br>"
+        "Change %: <b>%{customdata[4]:.2f}%</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[8]}</b>)</span>"
+        "</span><extra></extra>"
     )
 
     q_max = max(abs(merged[metric_type].quantile(0.05)),abs(merged[metric_type].quantile(0.95)))
@@ -392,6 +392,7 @@ def update_county_detail(map_click, top_cell, top_data, bottom_cell, bottom_data
     elif bottom_cell and bottom_data:
         label = bottom_data[bottom_cell['row']]['county_state']
 
+    print("Clicked label from table:", label)
     if label:
         # Extract FIPS from label if needed using mapping
         fips = county_state_to_fips_map.get(label)
@@ -408,22 +409,36 @@ def update_county_detail(map_click, top_cell, top_data, bottom_cell, bottom_data
     county_name = f"{dff.iloc[0]['County']} County, {dff.iloc[0]['State']}"
 
     start_pop = dff.iloc[0]['Population']
-    dff['Change %'] = 100 * (dff['Population'] - start_pop) / start_pop
+    # dff['Change %'] = 100 * (dff['Population'] - start_pop) / start_pop
+    dff['YoY'] = dff['Population'].diff()
+    dff['YoY %'] = dff['Population'].pct_change() * 100
     dff['Year Label'] = dff['Year'].astype(str)
+
+    hovertemplate=(
+        "<b>%{customdata[0]}</b><br><br>"
+        "%{customdata[1]} Population: <b>%{customdata[2]:,}</b><br>"
+        "Change from prior year: <b>%{customdata[3]:+,.0f}</b><br>"
+        "Change % from prior year: <b>%{customdata[4]:+.2f}%</b><extra></extra>"
+    )
+
+    max_val = dff['YoY %'].max()
+    min_val = dff['YoY %'].min()
+    y_range = max(abs(max_val), abs(min_val))
 
     bar_fig = go.Figure()
     bar_fig.add_trace(go.Bar(
         x=dff['Year Label'],
-        y=dff['Change %'],
-        marker_color='teal',
+        y=dff['YoY %'],
+        marker_color=['#003366' if x >= 0 else '#8B0000' for x in dff['YoY %']],
         hovertemplate='%{x}: %{y:.2f}%<extra></extra>'
     ))
     bar_fig.update_layout(
-        title=f"Population % Change from {start_year}",
+        title=f"Population % Change from Prior Year",
         height=300,
         margin=dict(l=10, r=10, t=30, b=10),
-        yaxis=dict(title='% Change'),
+        yaxis=dict(title='% Change', zeroline=True, zerolinewidth=2, zerolinecolor='gray', range=[-y_range, y_range]),
         xaxis=dict(title='Year'),
+        font=dict(family="Arial")
     )
 
     latest_row = dff.iloc[-1]
@@ -431,11 +446,55 @@ def update_county_detail(map_click, top_cell, top_data, bottom_cell, bottom_data
     change_pct = dff.iloc[-1]['Change %']
     change_raw = pop_latest - start_pop
 
+    bar_fig.update_traces(
+        customdata=dff[['county_state', 'Year Label', 'Population', 'YoY', 'YoY %']],
+        hovertemplate=hovertemplate
+    )
+
     return [
-        html.H4(county_name, style={'marginBottom': '10px'}),
-        html.P(f"{start_year} Population: {start_pop:,}"),
-        html.P(f"{end_year} Population: {pop_latest:,}"),
-        html.P(f"Change: {change_raw:+,} ({change_pct:+.2f}%)"),
+        html.Div([
+            html.H4(county_name, style={'fontWeight': 'bold', 'marginBottom': '10px'}),
+
+            html.Div([
+                html.Span(f"{start_year} Population: ", style={'fontSize': '12px'}),
+                html.B(f"{pop_start:,}", style={'fontSize': '12px'}),
+                html.Span([
+                    " (Rank ",
+                    html.B(f"{rank_start}", style={'fontWeight': 'bold'}),
+                    f" of {total:,})"
+                ], style={'fontSize': '10px', 'color': '#cccccc'})
+            ]),
+
+            html.Div([
+                html.Span(f"{end_year} Population: ", style={'fontSize': '12px'}),
+                html.B(f"{pop_latest:,}", style={'fontSize': '12px'}),
+                html.Span([
+                    " (Rank ",
+                    html.B(f"{rank_end}", style={'fontWeight': 'bold'}),
+                    ")"
+                ], style={'fontSize': '10px', 'color': '#cccccc'})
+            ]),
+
+            html.Div([
+                html.Span("Change: ", style={'fontSize': '12px'}),
+                html.B(f"{change_raw:+,}", style={'fontSize': '12px'}),
+                html.Span([
+                    " (Rank ",
+                    html.B(f"{rank_diff}", style={'fontWeight': 'bold'}),
+                    ")"
+                ], style={'fontSize': '10px', 'color': '#cccccc'})
+            ]),
+
+            html.Div([
+                html.Span("Change %: ", style={'fontSize': '12px'}),
+                html.B(f"{change_pct:+.2f}%", style={'fontSize': '12px'}),
+                html.Span([
+                    " (Rank ",
+                    html.B(f"{rank_pct}", style={'fontWeight': 'bold'}),
+                    ")"
+                ], style={'fontSize': '10px', 'color': '#cccccc'})
+            ])
+        ]),
         dcc.Graph(figure=bar_fig, config={'displayModeBar': False})
     ]
 
