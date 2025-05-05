@@ -401,8 +401,9 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
         # Extract FIPS from label if needed using mapping
         fips = county_state_to_fips_map.get(label)
 
-    if not fips:
-        return "Click on a county in the map or table to view details."
+    # DEBUG
+    # if not fips:
+    #    return "Click on a county in the map or table to view details."
 
     dff = df[df['FIPS'] == fips].sort_values(by='Year')	
     dff = dff[(dff['Year'] >= start_year) & (dff['Year'] <= end_year)].copy()
@@ -476,6 +477,7 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
         hovertemplate=hovertemplate
     )
 
+    # DEBUG
     debug_text = html.Pre([
         f"FIPS: {fips}\n",
         f"map_click: {map_click}\n",
