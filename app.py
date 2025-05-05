@@ -388,15 +388,6 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
 def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year, filtered_data, top_data, bottom_data):
     fips = None
     label = None
-    
-    # DEBUG
-    print("DEBUG: Callback fired")
-    print("map_click =", map_click)
-    print("top_cell =", top_cell)
-    print("bottom_cell =", bottom_cell)
-    print("start_year =", start_year)
-    print("end_year =", end_year)
-    print("filtered_data =", type(filtered_data), "Length:", len(filtered_data) if filtered_data else 0)
 
     if map_click:
         fips = map_click['points'][0]['location']
@@ -485,6 +476,15 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
         hovertemplate=hovertemplate
     )
 
+    debug_text = html.Pre([
+        f"FIPS: {fips}\n",
+        f"map_click: {map_click}\n",
+        f"top_cell: {top_cell}\n",
+        f"bottom_cell: {bottom_cell}\n",
+        f"start_year: {start_year}, end_year: {end_year}\n",
+        f"filtered_data length: {len(filtered_data) if filtered_data else 0}\n",
+    ])
+
     return [
         html.Div([
             html.H4(county_name, style={'fontWeight': 'bold', 'marginBottom': '10px'}),
@@ -528,6 +528,12 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
                     ")"
                 ], style={'fontSize': '10px', 'color': '#555555'})
             ]),
+
+            html.Div([
+                html.H4("Debug Info (Render)", style={'color': 'red'}),
+                debug_text
+            ]),
+
             html.Div(style={'marginBottom': '15px'})
         ]),
         dcc.Graph(figure=bar_fig, config={'displayModeBar': False})
