@@ -85,12 +85,12 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
         'margin-bottom': '10px'
     }, children=[
         html.Div([
-            html.Label("Metric", style={'font-weight': 'bold'}),
+            html.Label("Change Type", style={'font-weight': 'bold'}),
             dcc.RadioItems(
                 id='metric-radio',
                 options=[
-                    {'label': 'Absolute Change', 'value': 'numeric_diff'},
-                    {'label': 'Percentage Change', 'value': 'percent_diff'}
+                    {'label': 'Absolute', 'value': 'numeric_diff'},
+                    {'label': 'Percentage', 'value': 'percent_diff'}
                 ],
                 value='percent_diff',
                 labelStyle={'display': 'block', 'margin-top': '5px'}
@@ -321,8 +321,8 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         "<span style='font-size: 12px;'>"
         "%{customdata[10]} Population: <b>%{customdata[1]:,}</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[5]}</b> of %{customdata[9]})</span><br>"
         "%{customdata[11]} Population: <b>%{customdata[2]:,}</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[6]}</b>)</span><br>"
-        "Change: <b>%{customdata[3]:,}</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[7]}</b>)</span><br>"
-        "Change %: <b>%{customdata[4]:.2f}%</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[8]}</b>)</span>"
+        "Change: <b>%{customdata[3]:+,.0f}</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[7]}</b>)</span><br>"
+        "Change %: <b>%{customdata[4]:+,.2f}%</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[8]}</b>)</span>"
         "</span><extra></extra>"
     )
 
@@ -455,7 +455,13 @@ def update_county_detail(map_click, top_cell, top_data, bottom_cell, bottom_data
         margin=dict(l=10, r=10, t=30, b=10),
         yaxis=dict(title='% Change', zeroline=True, zerolinewidth=2, zerolinecolor='gray', range=[-y_range, y_range]),
         xaxis=dict(title='Year'),
-        font=dict(family="Arial")
+        font=dict(family="Arial"),
+        plot_bgcolor="#f8f9fa",
+        paper_bgcolor="#f8f9fa",
+        title_font=dict(color="#333333", family="Arial"),
+        xaxis=dict(title='Year', titlefont=dict(color="#333333")),
+        yaxis=dict(title='% Change', titlefont=dict(color="#333333")),
+        font=dict(family="Arial", color="#333333")
     )
 
     latest_row = dff.iloc[-1]
