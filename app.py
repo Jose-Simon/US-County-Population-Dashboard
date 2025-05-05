@@ -457,7 +457,6 @@ def update_county_detail(map_click, top_cell, top_data, bottom_cell, bottom_data
         margin=dict(l=10, r=10, t=30, b=10),
         yaxis=dict(title='% Change', titlefont=dict(color="#333333"), zeroline=True, zerolinewidth=2, zerolinecolor='gray', range=[-y_range, y_range]),
         xaxis=dict(title='Year', titlefont=dict(color="#333333")),
-        font=dict(family="Arial"),
         plot_bgcolor="#f8f9fa",
         paper_bgcolor="#f8f9fa",
         hoverlabel=dict(
