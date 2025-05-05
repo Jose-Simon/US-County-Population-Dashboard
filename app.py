@@ -261,6 +261,8 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
 
     merged['numeric_diff'] = merged['Population_end'] - merged['Population_start']
     merged['percent_diff'] = (merged['numeric_diff'] / merged['Population_start']) * 100
+    merged['numeric_diff_fmt'] = merged['numeric_diff'].apply(lambda x: f"{x:+,}" if pd.notnull(x) else "")
+    merged['percent_diff_fmt'] = merged['percent_diff'].apply(lambda x: f"{x:+.2f}%" if pd.notnull(x) else "")
     merged['county_state'] = merged['County'] + ", " + merged['State']
     merged['start_year'] = start_year
     merged['end_year'] = end_year
@@ -321,8 +323,8 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         "<span style='font-size: 12px;'>"
         "%{customdata[10]} Population: <b>%{customdata[1]:,}</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[5]}</b> of %{customdata[9]})</span><br>"
         "%{customdata[11]} Population: <b>%{customdata[2]:,}</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[6]}</b>)</span><br>"
-        "Change: <b>%{customdata[3]:+,.0f}</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[7]}</b>)</span><br>"
-        "Change %: <b>%{customdata[4]:+,.2f}%</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[8]}</b>)</span>"
+        "Change: <b>%{customdata[3]}</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[7]}</b>)</span><br>"
+        "Change %: <b>%{customdata[4]}%</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[8]}</b>)</span>"
         "</span><extra></extra>"
     )
 
@@ -341,7 +343,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     )
 	
     fig.update_traces(
-        customdata=merged[['county_state', 'Population_start', 'Population_end', 'numeric_diff', 'percent_diff',
+        customdata=merged[['county_state', 'Population_start', 'Population_end', 'numeric_diff_fmt', 'percent_diff_fmt',
                       'Population_start_rank', 'Population_end_rank', 'numeric_diff_rank','percent_diff_rank',
                       'total_county', 'start_year', 'end_year']],
         hovertemplate=hovertemplate
@@ -419,13 +421,16 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
     # dff['Change %'] = 100 * (dff['Population'] - start_pop) / start_pop
     dff['YoY'] = dff['Population'].diff().astype(float)
     dff['YoY %'] = dff['Population'].pct_change().astype(float) * 100
+    dff['YoY_fmt'] = dff['YoY'].apply(lambda x: f"{x:+,}" if pd.notnull(x) else "")
+    dff['YoY_pct_fmt'] = dff['YoY %'].apply(lambda x: f"{x:+.2f}%" if pd.notnull(x) else "")
     dff['Year Label'] = dff['Year'].astype(str)
+    dff['Year Label Short'] = dff['Year Label'] = "'" + dff['Year'].astype(str).str[-2:]
 
     hovertemplate=(
         "<b>%{customdata[0]}</b><br><br>"
         "%{customdata[1]} Population: <b>%{customdata[2]:,}</b><br>"
-        "Change from prior year: <b>%{customdata[3]:+,.0f}</b><br>"
-        "Change % from prior year: <b>%{customdata[4]:+.2f}%</b><extra></extra>"
+        "Change from prior year: <b>%{customdata[3]}</b><br>"
+        "Change % from prior year: <b>%{customdata[4]}%</b><extra></extra>"
     )
 
     max_val = dff['YoY %'].max()
@@ -447,7 +452,7 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
 
     bar_fig = go.Figure()
     bar_fig.add_trace(go.Bar(
-        x=dff['Year Label'],
+        x=dff['Year Label Short'],
         y=dff['YoY %'],
         marker_color=['#003366' if x >= 0 else '#8B0000' for x in dff['YoY %']]
     ))
@@ -474,7 +479,7 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
     change_raw = pop_latest - start_pop
 
     bar_fig.update_traces(
-        customdata=dff[['county_state', 'Year Label', 'Population', 'YoY', 'YoY %']],
+        customdata=dff[['county_state', 'Year Label', 'Population', 'YoY_fmt', 'YoY_pct_fmt']],
         hovertemplate=hovertemplate
     )
 
