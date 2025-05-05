@@ -451,17 +451,20 @@ def update_county_detail(map_click, top_cell, top_data, bottom_cell, bottom_data
     ))
     bar_fig.update_layout(
         title=f"Population % Change from Prior Year",
+        title_font=dict(color="#333333", family="Arial"),
+        font=dict(family="Arial", color="#333333"),
         height=300,
         margin=dict(l=10, r=10, t=30, b=10),
-        yaxis=dict(title='% Change', zeroline=True, zerolinewidth=2, zerolinecolor='gray', range=[-y_range, y_range]),
-        xaxis=dict(title='Year'),
+        yaxis=dict(title='% Change', titlefont=dict(color="#333333"), zeroline=True, zerolinewidth=2, zerolinecolor='gray', range=[-y_range, y_range]),
+        xaxis=dict(title='Year', titlefont=dict(color="#333333")),
         font=dict(family="Arial"),
         plot_bgcolor="#f8f9fa",
         paper_bgcolor="#f8f9fa",
-        title_font=dict(color="#333333", family="Arial"),
-        xaxis=dict(title='Year', titlefont=dict(color="#333333")),
-        yaxis=dict(title='% Change', titlefont=dict(color="#333333")),
-        font=dict(family="Arial", color="#333333")
+        hoverlabel=dict(
+            bgcolor="rgba(50, 50, 50, 0.9)",  # same as choropleth map
+            font=dict(color="white"),
+            bordercolor="rgba(200, 200, 200, 0.5)"
+        )
     )
 
     latest_row = dff.iloc[-1]
