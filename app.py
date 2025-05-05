@@ -519,7 +519,7 @@ def update_county_detail(map_click, top_cell, top_data, bottom_cell, bottom_data
 # Run the app
 # ----------------------------------------------------------------------------
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run
 
 # ----------------------------------------------------------------------------
 # End of the program
