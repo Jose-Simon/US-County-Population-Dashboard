@@ -408,8 +408,9 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
     dff = df[df['FIPS'] == fips].sort_values(by='Year')	
     dff = dff[(dff['Year'] >= start_year) & (dff['Year'] <= end_year)].copy()
 
-    if dff.empty:
-        return "No data available for selected county."
+    # DEBUG
+    # if dff.empty:
+    #    return "No data available for selected county."
 
     county_name = f"{dff.iloc[0]['County']}, {dff.iloc[0]['State']}"
     dff['county_state'] = county_name
