@@ -381,9 +381,9 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     Input('bottomcnt-table', 'active_cell'),
     Input('start-year-dropdown', 'value'),
     Input('end-year-dropdown', 'value'),
-    Input('filtered-data', 'data')
+    Input('filtered-data', 'data'),
     State('topcnt-table', 'data'),
-    State('bottomcnt-table', 'data'),
+    State('bottomcnt-table', 'data')
 )
 def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year, filtered_data, top_data, bottom_data):
     fips = None
