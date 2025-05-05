@@ -492,43 +492,43 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
             html.H4(county_name, style={'fontWeight': 'bold', 'marginBottom': '10px'}),
 
             html.Div([
-                html.Span(f"{start_year} Population: ", style={'fontSize': '12px'}),
-                html.B(f"{start_pop:,}", style={'fontSize': '12px'}),
+                html.Span(f"{start_year} Population: ", style={'fontSize': '16px'}),
+                html.B(f"{start_pop:,}", style={'fontSize': '16px'}),
                 html.Span([
                     " (Rank ",
                     html.B(f"{rank_start}", style={'fontWeight': 'bold'}),
                     f" of {total:,})"
-                ], style={'fontSize': '10px', 'color': '#555555'})
+                ], style={'fontSize': '14px', 'color': '#555555'})
             ]),
 
             html.Div([
-                html.Span(f"{end_year} Population: ", style={'fontSize': '12px'}),
-                html.B(f"{pop_latest:,}", style={'fontSize': '12px'}),
+                html.Span(f"{end_year} Population: ", style={'fontSize': '16px'}),
+                html.B(f"{pop_latest:,}", style={'fontSize': '16px'}),
                 html.Span([
                     " (Rank ",
                     html.B(f"{rank_end}", style={'fontWeight': 'bold'}),
                     ")"
-                ], style={'fontSize': '10px', 'color': '#555555'})
+                ], style={'fontSize': '14px', 'color': '#555555'})
             ]),
 
             html.Div([
-                html.Span("Change: ", style={'fontSize': '12px'}),
-                html.B(f"{change_raw:+,}", style={'fontSize': '12px'}),
+                html.Span("Change: ", style={'fontSize': '16px'}),
+                html.B(f"{change_raw:+,}", style={'fontSize': '16px'}),
                 html.Span([
                     " (Rank ",
                     html.B(f"{rank_diff}", style={'fontWeight': 'bold'}),
                     ")"
-                ], style={'fontSize': '10px', 'color': '#555555'})
+                ], style={'fontSize': '14px', 'color': '#555555'})
             ]),
 
             html.Div([
-                html.Span("Change %: ", style={'fontSize': '12px'}),
-                html.B(f"{change_pct:+.2f}%", style={'fontSize': '12px'}),
+                html.Span("Change %: ", style={'fontSize': '16px'}),
+                html.B(f"{change_pct:+.2f}%", style={'fontSize': '16px'}),
                 html.Span([
                     " (Rank ",
                     html.B(f"{rank_pct}", style={'fontWeight': 'bold'}),
                     ")"
-                ], style={'fontSize': '10px', 'color': '#555555'})
+                ], style={'fontSize': '14px', 'color': '#555555'})
             ]),
 
             html.Div([
