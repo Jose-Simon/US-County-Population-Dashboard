@@ -428,7 +428,7 @@ def update_county_detail(map_click, top_cell, top_data, bottom_cell, bottom_data
 
     max_val = dff['YoY %'].max()
     min_val = dff['YoY %'].min()
-    y_range = max(abs(max_val), abs(min_val))
+    y_range = 1.1 * max(abs(max_val), abs(min_val))
 	
     filtered_df = pd.DataFrame(filtered_data)
     total = len(filtered_df)
@@ -479,7 +479,7 @@ def update_county_detail(map_click, top_cell, top_data, bottom_cell, bottom_data
                     " (Rank ",
                     html.B(f"{rank_start}", style={'fontWeight': 'bold'}),
                     f" of {total:,})"
-                ], style={'fontSize': '10px', 'color': '#cccccc'})
+                ], style={'fontSize': '10px', 'color': '#555555'})
             ]),
 
             html.Div([
@@ -489,7 +489,7 @@ def update_county_detail(map_click, top_cell, top_data, bottom_cell, bottom_data
                     " (Rank ",
                     html.B(f"{rank_end}", style={'fontWeight': 'bold'}),
                     ")"
-                ], style={'fontSize': '10px', 'color': '#cccccc'})
+                ], style={'fontSize': '10px', 'color': '#555555'})
             ]),
 
             html.Div([
@@ -499,7 +499,7 @@ def update_county_detail(map_click, top_cell, top_data, bottom_cell, bottom_data
                     " (Rank ",
                     html.B(f"{rank_diff}", style={'fontWeight': 'bold'}),
                     ")"
-                ], style={'fontSize': '10px', 'color': '#cccccc'})
+                ], style={'fontSize': '10px', 'color': '#555555'})
             ]),
 
             html.Div([
@@ -509,8 +509,9 @@ def update_county_detail(map_click, top_cell, top_data, bottom_cell, bottom_data
                     " (Rank ",
                     html.B(f"{rank_pct}", style={'fontWeight': 'bold'}),
                     ")"
-                ], style={'fontSize': '10px', 'color': '#cccccc'})
-            ])
+                ], style={'fontSize': '10px', 'color': '#555555'})
+            ]),
+            html.Div(style={'marginBottom': '15px'})
         ]),
         dcc.Graph(figure=bar_fig, config={'displayModeBar': False})
     ]
