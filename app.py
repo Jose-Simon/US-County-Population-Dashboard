@@ -443,7 +443,7 @@ def update_county_detail(map_click, top_cell, top_data, bottom_cell, bottom_data
 
     latest_row = dff.iloc[-1]
     pop_latest = latest_row['Population']
-    change_pct = dff.iloc[-1]['Change %']
+    change_pct = 100 * (pop_latest - start_pop) / start_pop
     change_raw = pop_latest - start_pop
 
     bar_fig.update_traces(
