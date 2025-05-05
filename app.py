@@ -152,6 +152,7 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
                 style={'backgroundColor': 'white', 'color': 'black', 'fontSize': '16px'}
             )
         ], style={'width': '20%', 'minWidth': '180px'})
+		
     ]),
 
     html.Div(id="summary-banner", style={
@@ -185,7 +186,8 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
             'color': '#333',
             'maxHeight': '800px',
             'overflowY': 'auto'
-        })
+        }),
+        dcc.Store(id='filtered-data')
     ]),
 
     html.Div(style={'display': 'flex', 'justify-content': 'space-around', 'margin-top': '20px', 'flex-wrap': 'wrap'}, children=[
@@ -232,6 +234,7 @@ def update_title(start_year, end_year):
     Output('topcnt-table', 'columns'),
     Output('bottomcnt-table', 'data'),
     Output('bottomcnt-table', 'columns'),
+    Output('filtered-data', 'data'),
     Input('start-year-dropdown', 'value'),
     Input('end-year-dropdown', 'value'),
     Input('metric-radio', 'value'),
@@ -369,7 +372,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     topcnt['percent_diff'] = topcnt['percent_diff'].apply(lambda x: f"{x:.2f}%")
     bottomcnt['percent_diff'] = bottomcnt['percent_diff'].apply(lambda x: f"{x:.2f}%")
 
-    return summary, fig, topcnt.to_dict('records'), columns, bottomcnt.to_dict('records'), columns
+    return summary, fig, topcnt.to_dict('records'), columns, bottomcnt.to_dict('records'), columns, merged.to_dict('records')
 
 @app.callback(
     Output('county-detail-pane', 'children'),
@@ -379,9 +382,10 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     Input('bottomcnt-table', 'active_cell'),
     State('bottomcnt-table', 'data'),
     Input('start-year-dropdown', 'value'),
-    Input('end-year-dropdown', 'value')
+    Input('end-year-dropdown', 'value'),
+    Input('filtered-data', 'data')
 )
-def update_county_detail(map_click, top_cell, top_data, bottom_cell, bottom_data, start_year, end_year):
+def update_county_detail(map_click, top_cell, top_data, bottom_cell, bottom_data, start_year, end_year, filtered_data):
     fips = None
     label = None
 
@@ -400,18 +404,19 @@ def update_county_detail(map_click, top_cell, top_data, bottom_cell, bottom_data
     if not fips:
         return "Click on a county in the map or table to view details."
 
-    dff = df[df['FIPS'] == fips].sort_values(by='Year')
+    dff = df[df['FIPS'] == fips].sort_values(by='Year')	
     dff = dff[(dff['Year'] >= start_year) & (dff['Year'] <= end_year)].copy()
 
     if dff.empty:
         return "No data available for selected county."
 
-    county_name = f"{dff.iloc[0]['County']} County, {dff.iloc[0]['State']}"
+    county_name = f"{dff.iloc[0]['County']}, {dff.iloc[0]['State']}"
+    dff['county_state'] = county_name
 
     start_pop = dff.iloc[0]['Population']
     # dff['Change %'] = 100 * (dff['Population'] - start_pop) / start_pop
-    dff['YoY'] = dff['Population'].diff()
-    dff['YoY %'] = dff['Population'].pct_change() * 100
+    dff['YoY'] = dff['Population'].diff().astype(float)
+    dff['YoY %'] = dff['Population'].pct_change().astype(float) * 100
     dff['Year Label'] = dff['Year'].astype(str)
 
     hovertemplate=(
@@ -424,13 +429,25 @@ def update_county_detail(map_click, top_cell, top_data, bottom_cell, bottom_data
     max_val = dff['YoY %'].max()
     min_val = dff['YoY %'].min()
     y_range = max(abs(max_val), abs(min_val))
+	
+    filtered_df = pd.DataFrame(filtered_data)
+    total = len(filtered_df)
+
+    rank_start = filtered_df.set_index('FIPS')['Population_start'].rank(ascending=False, method='min').astype(int).get(fips)
+    rank_end = filtered_df.set_index('FIPS')['Population_end'].rank(ascending=False, method='min').astype(int).get(fips)
+    
+    df_change = pd.DataFrame(filtered_data).set_index('FIPS')
+    df_change['numeric_diff'] = df_change['Population_end'] - df_change['Population_start']
+    df_change['percent_diff'] = (df_change['numeric_diff'] / df_change['Population_start']) * 100
+
+    rank_diff = df_change['numeric_diff'].rank(ascending=False, method='min').astype(int).get(fips, None)
+    rank_pct = df_change['percent_diff'].rank(ascending=False, method='min').astype(int).get(fips, None)
 
     bar_fig = go.Figure()
     bar_fig.add_trace(go.Bar(
         x=dff['Year Label'],
         y=dff['YoY %'],
-        marker_color=['#003366' if x >= 0 else '#8B0000' for x in dff['YoY %']],
-        hovertemplate='%{x}: %{y:.2f}%<extra></extra>'
+        marker_color=['#003366' if x >= 0 else '#8B0000' for x in dff['YoY %']]
     ))
     bar_fig.update_layout(
         title=f"Population % Change from Prior Year",
@@ -457,7 +474,7 @@ def update_county_detail(map_click, top_cell, top_data, bottom_cell, bottom_data
 
             html.Div([
                 html.Span(f"{start_year} Population: ", style={'fontSize': '12px'}),
-                html.B(f"{pop_start:,}", style={'fontSize': '12px'}),
+                html.B(f"{start_pop:,}", style={'fontSize': '12px'}),
                 html.Span([
                     " (Rank ",
                     html.B(f"{rank_start}", style={'fontWeight': 'bold'}),
@@ -502,7 +519,7 @@ def update_county_detail(map_click, top_cell, top_data, bottom_cell, bottom_data
 # Run the app
 # ----------------------------------------------------------------------------
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
 
 # ----------------------------------------------------------------------------
 # End of the program
