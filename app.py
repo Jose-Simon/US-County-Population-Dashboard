@@ -388,6 +388,15 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
 def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year, filtered_data, top_data, bottom_data):
     fips = None
     label = None
+    
+    # DEBUG
+    print("DEBUG: Callback fired")
+    print("map_click =", map_click)
+    print("top_cell =", top_cell)
+    print("bottom_cell =", bottom_cell)
+    print("start_year =", start_year)
+    print("end_year =", end_year)
+    print("filtered_data =", type(filtered_data), "Length:", len(filtered_data) if filtered_data else 0)
 
     if map_click:
         fips = map_click['points'][0]['location']
