@@ -378,14 +378,14 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     Output('county-detail-pane', 'children'),
     Input('choropleth-map', 'clickData'),
     Input('topcnt-table', 'active_cell'),
-    State('topcnt-table', 'data'),
     Input('bottomcnt-table', 'active_cell'),
-    State('bottomcnt-table', 'data'),
     Input('start-year-dropdown', 'value'),
     Input('end-year-dropdown', 'value'),
     Input('filtered-data', 'data')
+    State('topcnt-table', 'data'),
+    State('bottomcnt-table', 'data'),
 )
-def update_county_detail(map_click, top_cell, top_data, bottom_cell, bottom_data, start_year, end_year, filtered_data):
+def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year, filtered_data, top_data, bottom_data):
     fips = None
     label = None
 
