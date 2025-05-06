@@ -457,13 +457,32 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
         marker_color=['#003366' if x >= 0 else '#8B0000' for x in dff['YoY %']]
     ))
     bar_fig.update_layout(
-        title=f"Population % Change from Prior Year",
-        title_font=dict(color="#333333", family="Arial"),
+        title=dict(
+            text="Population % Change from Prior Year",
+            font=dict(color="#333333", family="Arial")
+        ),
         font=dict(family="Arial", color="#333333"),
         height=300,
         margin=dict(l=10, r=10, t=30, b=10),
-        yaxis=dict(title='% Change', font=dict(color="#333333"), zeroline=True, zerolinewidth=2, zerolinecolor='gray', range=[-y_range, y_range]),
-        xaxis=dict(title='Year', font=dict(color="#333333")),
+        yaxis=dict(
+            title=dict(
+                text='% Change',
+                font=dict(color="#333333", family="Arial")
+            ),
+            tickfont=dict(color="#333333", family="Arial"),
+            zeroline=True,
+            zerolinewidth=2,
+            zerolinecolor='gray',
+            range=[-y_range, y_range]
+        ),
+        xaxis=dict(
+            title=dict(
+                text='Year',
+                font=dict(color="#333333", family="Arial")
+            ),
+            tickfont=dict(color="#333333", family="Arial"),
+            tickangle=0
+        ),
         plot_bgcolor="#f8f9fa",
         paper_bgcolor="#f8f9fa",
         hoverlabel=dict(
