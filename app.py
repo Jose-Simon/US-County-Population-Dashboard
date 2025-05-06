@@ -324,7 +324,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         "%{customdata[10]} Population: <b>%{customdata[1]:,}</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[5]}</b> of %{customdata[9]})</span><br>"
         "%{customdata[11]} Population: <b>%{customdata[2]:,}</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[6]}</b>)</span><br>"
         "Change: <b>%{customdata[3]}</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[7]}</b>)</span><br>"
-        "Change %: <b>%{customdata[4]}%</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[8]}</b>)</span>"
+        "Change %: <b>%{customdata[4]}</b> <span style='font-size: 10px; color: #cccccc;'>(Rank <b>%{customdata[8]}</b>)</span>"
         "</span><extra></extra>"
     )
 
@@ -462,8 +462,8 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
         font=dict(family="Arial", color="#333333"),
         height=300,
         margin=dict(l=10, r=10, t=30, b=10),
-        yaxis=dict(title='% Change', titlefont=dict(color="#333333"), zeroline=True, zerolinewidth=2, zerolinecolor='gray', range=[-y_range, y_range]),
-        xaxis=dict(title='Year', titlefont=dict(color="#333333")),
+        yaxis=dict(title='% Change', font=dict(color="#333333"), zeroline=True, zerolinewidth=2, zerolinecolor='gray', range=[-y_range, y_range]),
+        xaxis=dict(title='Year', font=dict(color="#333333")),
         plot_bgcolor="#f8f9fa",
         paper_bgcolor="#f8f9fa",
         hoverlabel=dict(
