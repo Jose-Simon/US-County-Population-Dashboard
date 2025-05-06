@@ -419,7 +419,7 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
     # dff['Change %'] = 100 * (dff['Population'] - start_pop) / start_pop
     dff['YoY'] = dff['Population'].diff().astype(float)
     dff['YoY %'] = dff['Population'].pct_change().astype(float) * 100
-    dff['YoY_fmt'] = dff['YoY'].apply(lambda x: f"{x:+,}" if pd.notnull(x) else "")
+    dff['YoY_fmt'] = dff['YoY'].apply(lambda x: f"{int(x):+,}" if pd.notnull(x) else "")
     dff['YoY_pct_fmt'] = dff['YoY %'].apply(lambda x: f"{x:+.2f}%" if pd.notnull(x) else "")
     dff['Year Label'] = dff['Year'].astype(str)
     dff['Year Label Short'] = "'" + dff['Year'].astype(str).str[-2:]
