@@ -424,13 +424,13 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
     dff['YoY_fmt'] = dff['YoY'].apply(lambda x: f"{x:+,}" if pd.notnull(x) else "")
     dff['YoY_pct_fmt'] = dff['YoY %'].apply(lambda x: f"{x:+.2f}%" if pd.notnull(x) else "")
     dff['Year Label'] = dff['Year'].astype(str)
-    dff['Year Label Short'] = dff['Year Label'] = "'" + dff['Year'].astype(str).str[-2:]
+    dff['Year Label Short'] = "'" + dff['Year'].astype(str).str[-2:]
 
     hovertemplate=(
         "<b>%{customdata[0]}</b><br><br>"
         "%{customdata[1]} Population: <b>%{customdata[2]:,}</b><br>"
         "Change from prior year: <b>%{customdata[3]}</b><br>"
-        "Change % from prior year: <b>%{customdata[4]}%</b><extra></extra>"
+        "Change % from prior year: <b>%{customdata[4]}</b><extra></extra>"
     )
 
     max_val = dff['YoY %'].max()
@@ -458,7 +458,7 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
     ))
     bar_fig.update_layout(
         title=dict(
-            text="Population % Change from Prior Year",
+            text="<b>Population % Change from Prior Year<b>",
             font=dict(color="#333333", family="Arial")
         ),
         font=dict(family="Arial", color="#333333"),
@@ -469,7 +469,7 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
                 text='% Change',
                 font=dict(color="#333333", family="Arial")
             ),
-            tickfont=dict(color="#333333", family="Arial"),
+            tickfont=dict(color="#333333", family="Arial", size=10),
             zeroline=True,
             zerolinewidth=2,
             zerolinecolor='gray',
@@ -480,7 +480,7 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
                 text='Year',
                 font=dict(color="#333333", family="Arial")
             ),
-            tickfont=dict(color="#333333", family="Arial"),
+            tickfont=dict(color="#333333", family="Arial", size=10),
             tickangle=0
         ),
         plot_bgcolor="#f8f9fa",
@@ -503,14 +503,14 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
     )
 
     # DEBUG
-    debug_text = html.Pre([
-        f"FIPS: {fips}\n",
-        f"map_click: {map_click}\n",
-        f"top_cell: {top_cell}\n",
-        f"bottom_cell: {bottom_cell}\n",
-        f"start_year: {start_year}, end_year: {end_year}\n",
-        f"filtered_data length: {len(filtered_data) if filtered_data else 0}\n",
-    ])
+    # debug_text = html.Pre([
+    #     f"FIPS: {fips}\n",
+    #     f"map_click: {map_click}\n",
+    #    f"top_cell: {top_cell}\n",
+    #    f"bottom_cell: {bottom_cell}\n",
+    #    f"start_year: {start_year}, end_year: {end_year}\n",
+    #    f"filtered_data length: {len(filtered_data) if filtered_data else 0}\n",
+    #])
 
     return [
         html.Div([
@@ -556,10 +556,10 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
                 ], style={'fontSize': '14px', 'color': '#555555'})
             ]),
 
-            html.Div([
-                html.H4("Debug Info (Render)", style={'color': 'red'}),
-                debug_text
-            ]),
+            #html.Div([
+            #    html.H4("Debug Info (Render)", style={'color': 'red'}),
+            #    debug_text
+            #]),
 
             html.Div(style={'marginBottom': '15px'})
         ]),
