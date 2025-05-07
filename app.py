@@ -240,12 +240,12 @@ def update_title(start_year, end_year):
     Input('metric-radio', 'value'),
     Input('state-filter-dropdown', 'value'),
     Input('county-filter-dropdown', 'value'),
-    Input('population-group-dropdown', 'value')
+    Input('population-group-dropdown', 'value'),
     Input('choropleth-map', 'clickData'),
     Input('topcnt-table', 'active_cell'),
     Input('bottomcnt-table', 'active_cell'),
     State('topcnt-table', 'data'),
-    State('bottomcnt-table', 'data'),
+    State('bottomcnt-table', 'data')
 )
 def update_dashboard(start_year, end_year, metric_type, selected_states, selected_counties, selected_group, map_click, top_cell, bottom_cell, top_data, bottom_data):
     dff = df.copy()
