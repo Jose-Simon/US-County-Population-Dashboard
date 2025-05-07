@@ -364,6 +364,10 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     fig.update_traces(
         marker_line_width=merged['selected'].apply(lambda x: 2.5 if x else 0.3),
         marker_line_color=merged['selected'].apply(lambda x: 'black' if x else 'gray'),
+        colorbar=dict(
+            title=dict(font=dict(family="Arial", color="#333333", size=14)),
+            tickfont=dict(family="Arial", color="#333333", size=12)
+        ),
         customdata=merged[['county_state', 'Population_start', 'Population_end', 'numeric_diff_fmt', 'percent_diff_fmt',
                       'Population_start_rank', 'Population_end_rank', 'numeric_diff_rank','percent_diff_rank',
                       'total_county', 'start_year', 'end_year']],
