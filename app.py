@@ -8,7 +8,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objs as go
 import dash
-from dash import dcc, html, Output, Input, State, Dash, dash_table
+from dash import ctx, dcc, html, Output, Input, State, Dash, dash_table
 import json
 import time
 
@@ -390,12 +390,13 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
 def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year, filtered_data, top_data, bottom_data):
     fips = None
     label = None
+    triggered = ctx.triggered_id
 
-    if map_click:
+    if triggered == 'choropleth-map' and map_click:
         fips = map_click['points'][0]['location']
-    elif top_cell and top_data:
+    elif triggered == 'topcnt-table' and top_cell and top_data:
         label = top_data[top_cell['row']]['county_state']
-    elif bottom_cell and bottom_data:
+    elif triggered == 'bottomcnt-table' and bottom_cell and bottom_data:
         label = bottom_data[bottom_cell['row']]['county_state']
 
     print("Clicked label from table:", label)
