@@ -328,7 +328,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         "</span><extra></extra>"
     )
 
-    q_max = max(abs(merged[metric_type].quantile(0.05)),abs(merged[metric_type].quantile(0.95)))
+    q_max = max(abs(merged[metric_type].quantile(0.1)),abs(merged[metric_type].quantile(0.9)))
     
     fig = px.choropleth(
         merged,
