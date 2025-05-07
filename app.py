@@ -241,9 +241,27 @@ def update_title(start_year, end_year):
     Input('state-filter-dropdown', 'value'),
     Input('county-filter-dropdown', 'value'),
     Input('population-group-dropdown', 'value')
+    Input('choropleth-map', 'clickData'),
+    Input('topcnt-table', 'active_cell'),
+    Input('bottomcnt-table', 'active_cell'),
+    State('topcnt-table', 'data'),
+    State('bottomcnt-table', 'data'),
 )
-def update_dashboard(start_year, end_year, metric_type, selected_states, selected_counties, selected_group):
+def update_dashboard(start_year, end_year, metric_type, selected_states, selected_counties, selected_group, map_click, top_cell, bottom_cell, top_data, bottom_data):
     dff = df.copy()
+
+    selected_fips = None
+    ctx = dash.callback_context
+
+    if ctx.triggered_id == 'choropleth-map' and map_click:
+        selected_fips = map_click['points'][0]['location']
+    elif ctx.triggered_id == 'topcnt-table' and top_cell and top_data:
+        label = top_data[top_cell['row']]['county_state']
+        selected_fips = county_state_to_fips_map.get(label)
+    elif ctx.triggered_id == 'bottomcnt-table' and bottom_cell and bottom_data:
+        label = bottom_data[bottom_cell['row']]['county_state']
+        selected_fips = county_state_to_fips_map.get(label)
+
     if selected_states:
         dff = dff[dff['State'].isin(selected_states)]
     if selected_counties:
@@ -258,6 +276,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     merged['PopGroup'] = pd.cut(merged['Population_start'], bins=bins, labels=labels)
     if selected_group:
         merged = merged[merged['PopGroup'].isin(selected_group)]
+    merged['selected'] = merged['FIPS'] == selected_fips
 
     merged['numeric_diff'] = merged['Population_end'] - merged['Population_start']
     merged['percent_diff'] = (merged['numeric_diff'] / merged['Population_start']) * 100
@@ -343,6 +362,8 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     )
 	
     fig.update_traces(
+        marker_line_width=merged['selected'].apply(lambda x: 2.5 if x else 0.3),
+        marker_line_color=merged['selected'].apply(lambda x: 'black' if x else 'gray'),
         customdata=merged[['county_state', 'Population_start', 'Population_end', 'numeric_diff_fmt', 'percent_diff_fmt',
                       'Population_start_rank', 'Population_end_rank', 'numeric_diff_rank','percent_diff_rank',
                       'total_county', 'start_year', 'end_year']],
