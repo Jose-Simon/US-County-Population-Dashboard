@@ -70,7 +70,7 @@ server = app.server
 # Layout
 # ----------------------------------------------------------------------------
 
-app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'padding': '10px'}, children=[
+app.layout = html.Div(style={'font-family': 'Roboto, Arial, Helvetica, sans-serif', 'padding': '10px'}, children=[
 
     html.H1(id='dashboard-title', style={'text-align': 'center', 'margin-bottom': '10px'}),
 
@@ -182,7 +182,7 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
             'padding': '15px',
             'border': '1px solid #ccc',
             'borderRadius': '6px',
-            'fontFamily': 'Helvetica, Arial, sans-serif',
+            'fontFamily': 'Roboto, Arial, Helvetica, sans-serif',
             'fontSize': '14px',
             'color': '#333',
             'maxHeight': '800px',
@@ -195,9 +195,9 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
         html.Div([
             html.H4("Growing Counties"),
             dash_table.DataTable(id='topcnt-table', fixed_rows={'headers': True},
-            style_table={'font-family': 'Helvetica, Arial, sans-serif', 'height': '350px', 'overflowY': 'auto'},
-			style_cell={'fontFamily': 'Helvetica, Arial, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
-			style_header={'fontFamily': 'Helvetica, Arial, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
+            style_table={'font-family': 'Roboto, Arial, Helvetica, sans-serif', 'height': '350px', 'overflowY': 'auto'},
+			style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
+			style_header={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
             style_cell_conditional=[
                 {'if': {'column_id': 'county_state'}, 'textAlign': 'left'},
             ])
@@ -206,9 +206,9 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
         html.Div([
             html.H4("Declining Counties"),
             dash_table.DataTable(id='bottomcnt-table',  fixed_rows={'headers': True},
-            style_table={'font-family': 'Helvetica, Arial, sans-serif', 'height': '350px', 'overflowY': 'auto'},
-			style_cell={'fontFamily': 'Helvetica, Arial, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
-			style_header={'fontFamily': 'Helvetica, Arial, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
+            style_table={'font-family': 'Roboto, Arial, Helvetica, sans-serif', 'height': '350px', 'overflowY': 'auto'},
+			style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
+			style_header={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
             style_cell_conditional=[
                 {'if': {'column_id': 'county_state'}, 'textAlign': 'left'},
             ])
@@ -419,8 +419,8 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         marker_line_width=merged['selected'].apply(lambda x: 10 if x else 0.3),
         marker_line_color=merged['selected'].apply(lambda x: '#66FF00' if x else 'gray'),
         colorbar=dict(
-            title=dict(font=dict(family="Arial", color="#333333", size=14)),
-            tickfont=dict(family="Arial", color="#333333", size=12)
+            title=dict(font=dict(family="Roboto, Arial, Helvetica, sans-serif", color="#333333", size=14)),
+            tickfont=dict(family="Roboto, Arial, Helvetica, sans-serif", color="#333333", size=12)
         ),
         customdata=merged[['county_state', 'Population_start', 'Population_end', 'numeric_diff_fmt', 'percent_diff_fmt',
                       'Population_start_rank', 'Population_end_rank', 'numeric_diff_rank','percent_diff_rank',
@@ -537,17 +537,17 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
     bar_fig.update_layout(
         title=dict(
             text="<b>Population % Change from Prior Year<b>",
-            font=dict(color="#333333", family="Arial")
+            font=dict(color="#333333", family="Roboto, Arial, Helvetica, sans-serif")
         ),
-        font=dict(family="Arial", color="#333333"),
+        font=dict(family="Roboto, Arial, Helvetica, sans-serif", color="#333333"),
         height=300,
         margin=dict(l=10, r=10, t=30, b=10),
         yaxis=dict(
             title=dict(
                 text='% Change',
-                font=dict(color="#333333", family="Arial")
+                font=dict(color="#333333", family="Roboto, Arial, Helvetica, sans-serif")
             ),
-            tickfont=dict(color="#333333", family="Arial", size=10),
+            tickfont=dict(color="#333333", family="Roboto, Arial, Helvetica, sans-serif", size=10),
             zeroline=True,
             zerolinewidth=2,
             zerolinecolor='gray',
@@ -556,9 +556,9 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
         xaxis=dict(
             title=dict(
                 text='Year',
-                font=dict(color="#333333", family="Arial")
+                font=dict(color="#333333", family="Roboto, Arial, Helvetica, sans-serif")
             ),
-            tickfont=dict(color="#333333", family="Arial", size=10),
+            tickfont=dict(color="#333333", family="Roboto, Arial, Helvetica, sans-serif", size=10),
             tickangle=0
         ),
         plot_bgcolor="#f8f9fa",
