@@ -90,12 +90,13 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
                 id='metric-radio',
                 options=[
                     {'label': 'Absolute', 'value': 'numeric_diff'},
-                    {'label': 'Percentage', 'value': 'percent_diff'}
+                    {'label': 'Percentage', 'value': 'percent_diff'},
+                    {'label': 'Percentage (normalized)', 'value': 'percent_diff_normalized'}
                 ],
                 value='percent_diff',
-                labelStyle={'display': 'block', 'margin-top': '5px'}
+                labelStyle={'display': 'inline-block', 'margin-right': '5px'}
             )
-        ], style={'width': '10%', 'minWidth': '150px'}),
+        ], style={'width': '10%', 'minWidth': '100px'}),
 
         html.Div([
             html.Label("Start Year", style={'font-weight': 'bold'}),
@@ -106,7 +107,7 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
                 clearable=False,
                 style={'backgroundColor': 'white', 'color': 'black', 'fontSize': '16px'}
             )
-        ], style={'width': '10%', 'minWidth': '150px'}),
+        ], style={'width': '10%', 'minWidth': '100px'}),
 
         html.Div([
             html.Label("End Year", style={'font-weight': 'bold'}),
@@ -128,7 +129,7 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
                 placeholder="Select states...",
                 style={'backgroundColor': 'white', 'color': 'black', 'fontSize': '16px'}
             )
-        ], style={'width': '20%', 'minWidth': '200px'}),
+        ], style={'width': '20%', 'minWidth': '150px'}),
 
         html.Div([
             html.Label("County Filter", style={'font-weight': 'bold'}),
@@ -139,7 +140,7 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
                 placeholder="Select counties...",
                 style={'backgroundColor': 'white', 'color': 'black', 'fontSize': '16px'}
             )
-        ], style={'width': '20%', 'minWidth': '200px'}),
+        ], style={'width': '20%', 'minWidth': '150px'}),
 		
 		html.Div([
             html.Label("Population Group", style={'font-weight': 'bold'}),
@@ -151,7 +152,7 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
                 clearable=True,
                 style={'backgroundColor': 'white', 'color': 'black', 'fontSize': '16px'}
             )
-        ], style={'width': '20%', 'minWidth': '180px'})
+        ], style={'width': '20%', 'minWidth': '150px'})
 		
     ]),
 
@@ -248,6 +249,12 @@ def update_title(start_year, end_year):
     State('bottomcnt-table', 'data')
 )
 def update_dashboard(start_year, end_year, metric_type, selected_states, selected_counties, selected_group, map_click, top_cell, bottom_cell, top_data, bottom_data):
+    if metric_type == 'percent_diff_normalized':
+        percent_diff_normalized = True
+        metric_type = 'percent_diff'
+    else:
+        percent_diff_normalized = False
+    
     dff = df.copy()
 
     selected_fips = None
@@ -347,8 +354,26 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         "</span><extra></extra>"
     )
 
-    q_max = max(abs(merged[metric_type].quantile(0.1)),abs(merged[metric_type].quantile(0.9)))
-    
+    if percent_diff_normalized == True:
+        # Use percent_diff values, but center color scale around overall percent change
+        center = percent_change_total
+        q = merged['percent_diff'].quantile([0.1, 0.9])
+        q_max = max(abs(q[0.1] - center), abs(q[0.9] - center))
+        color_field = 'percent_diff'
+        range_min, range_max = center - q_max, center + q_max
+
+    elif metric_type == 'percent_diff':
+        q = merged['percent_diff'].quantile([0.1, 0.9])
+        q_max = max(abs(q[0.1]), abs(q[0.9]))
+        color_field = 'percent_diff'
+        range_min, range_max = -q_max, q_max
+
+    else:  # numeric_diff
+        q = merged['numeric_diff'].quantile([0.1, 0.9])
+        q_max = max(abs(q[0.1]), abs(q[0.9]))
+        color_field = 'numeric_diff'
+        range_min, range_max = -q_max, q_max
+
     fig = px.choropleth(
         merged,
         geojson=counties_geojson,
@@ -356,7 +381,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         color=metric_type,
         featureidkey="properties.GEOID",
         color_continuous_scale='RdBu', #RdYlBu
-        range_color=[-q_max, q_max],
+        range_color=[range_min, range_max],
         scope="usa",
         labels={metric_type: 'Change'}
     )
