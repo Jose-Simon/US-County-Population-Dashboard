@@ -217,9 +217,9 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
 
     html.Footer(
         html.Div([
-            html.Span("Designed by ",
+            html.Span(["Designed by ",
             html.Span("Jose Simon", style={'fontWeight': 'bold'}),
-            " | Built with Python, Dash, and Plotly | Data Sources: Census.gov intercensal data files for "),
+            " | Built with Python, Dash, and Plotly | Data Sources: Census.gov intercensal data files for ",
             ]),
             html.A("2000-2010", href="https://www.census.gov/data/datasets/time-series/demo/popest/intercensal-2000-2010-counties.html", target="_blank", style={'color': 'white', 'textDecoration': 'underline'}),
             html.Span(", "),
