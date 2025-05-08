@@ -213,7 +213,36 @@ app.layout = html.Div(style={'font-family': 'Helvetica, Arial, sans-serif', 'pad
                 {'if': {'column_id': 'county_state'}, 'textAlign': 'left'},
             ])
         ], style={'width': '45%'}),
-    ])
+    ]),
+
+    html.Footer(
+        html.Div([
+            html.Span("Designed by ",
+            html.Span("Jose Simon", style={'fontWeight': 'bold'}),
+            " | Built with Python, Dash, and Plotly | Data Sources: Census.gov intercensal data files for "),
+            ]),
+            html.A("2000-2010", href="https://www.census.gov/data/datasets/time-series/demo/popest/intercensal-2000-2010-counties.html", target="_blank", style={'color': 'white', 'textDecoration': 'underline'}),
+            html.Span(", "),
+            html.A("2010-2020", href="https://www.census.gov/data/tables/time-series/demo/popest/intercensal-2010-2020-counties.html", target="_blank", style={'color': 'white', 'textDecoration': 'underline'}),
+            html.Span(", "),
+            html.A("2020-2024", href="https://www.census.gov/data/tables/time-series/demo/popest/2020s-counties-total.html", target="_blank", style={'color': 'white', 'textDecoration': 'underline'}),
+            html.Span(" and Simon Frost "),
+            html.A("Counties GeoJSON file", href="https://gist.github.com/sdwfrost/d1c73f91dd9d175998ed166eb216994a", target="_blank", style={'color': 'white', 'textDecoration': 'underline'})
+        ]),
+        style={
+            'backgroundColor': '#003366',
+            'color': 'white',
+            'textAlign': 'center',
+            'fontSize': '12px',
+            'paddingTop': '15px',
+            'paddingBottom': '20px',
+            'marginTop': '40px',
+            'paddingLeft': '10px',
+            'paddingRight': '10px',
+            'lineHeight': '1.6'
+        }
+    )
+
 ])
 
 # ----------------------------------------------------------------------------
@@ -571,7 +600,7 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
                 html.Span([
                     " (Rank ",
                     html.B(f"{rank_start}", style={'fontWeight': 'bold'}),
-                    f" of {total:,})"
+                    f" of {total})"
                 ], style={'fontSize': '14px', 'color': '#555555'})
             ]),
 
