@@ -147,9 +147,11 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
         'display': 'flex',
         'justifyContent': 'space-between',
         'alignItems': 'flex-start',
+        'marginTop': '20px',
         'marginBottom': '20px',
         'padding-left': '25px',
-        'padding-right': '25px'
+        'padding-right': '25px',
+        'height': '800px'
     }, children=[
         html.Div([
             dcc.Graph(
@@ -165,8 +167,8 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
         dcc.Store(id='filtered-data')
     ]),
 
-    html.Div(style={'display': 'flex', 'justifyContent': 'space-around', 'marginTop': '20px', 'marginBottom': '20px', 'flexWrap': 'wrap'}, children=[
-        html.Div(className='card', style={'width': '45%'}, children=[
+    html.Div(style={'display': 'flex', 'justifyContent': 'space-between', 'marginTop': '20px', 'marginBottom': '20px', 'flexWrap': 'wrap'}, children=[
+        html.Div(className='card', style={'width': '49%'}, children=[
             html.H4("Growing Counties"),
             dash_table.DataTable(id='topcnt-table', fixed_rows={'headers': True},
                 style_table={'height': '350px', 'overflowY': 'auto'},
@@ -177,7 +179,7 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
                 ])
         ]),
 
-        html.Div(className='card', style={'width': '45%'}, children=[
+        html.Div(className='card', style={'width': '49%'}, children=[
             html.H4("Declining Counties"),
             dash_table.DataTable(id='bottomcnt-table', fixed_rows={'headers': True},
                 style_table={'height': '350px', 'overflowY': 'auto'},
