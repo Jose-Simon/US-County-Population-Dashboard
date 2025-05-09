@@ -209,7 +209,7 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
 ])
 
 # ----------------------------------------------------------------------------
-# Callbacks
+# Callback for Dashboard title
 # ----------------------------------------------------------------------------
 
 @app.callback(
@@ -219,6 +219,10 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
 )
 def update_title(start_year, end_year):
     return f"Population Change by US Counties ({start_year}-{end_year})"
+
+# ----------------------------------------------------------------------------
+# Callback for Choropleth map
+# ----------------------------------------------------------------------------
 
 @app.callback(
     Output('summary-banner', 'children'),
@@ -427,6 +431,10 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
 
     return summary, fig, topcnt.to_dict('records'), columns, bottomcnt.to_dict('records'), columns, merged.to_dict('records')
 
+# ----------------------------------------------------------------------------
+# Callback for County detail
+# ----------------------------------------------------------------------------
+
 @app.callback(
     Output('county-detail-pane', 'children'),
     Input('choropleth-map', 'clickData'),
@@ -504,7 +512,7 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
     bar_fig.add_trace(go.Bar(
         x=dff['Year Label Short'],
         y=dff['YoY %'],
-        marker_color=['#003366' if x >= 0 else '#8B0000' for x in dff['YoY %']]
+        marker_color=['#003366' if x >= 0 else '#CC3300' for x in dff['YoY %']]
     ))
     bar_fig.update_layout(
         title=dict(
