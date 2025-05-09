@@ -74,7 +74,7 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
 
     html.H1(id='dashboard-title', className="header-bar"),
 
-    html.Div(className='card filter-bar', children=[
+    html.Div(className='filter-bar', children=[
         html.Div(className='filter-item', children=[
             html.Label("Change Type"),
             dcc.RadioItems(
@@ -149,10 +149,12 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
         'alignItems': 'flex-start',
         'marginBottom': '20px'
     }, children=[
-        dcc.Graph(
-            id="choropleth-map",
-            style={'height': '800px', 'width': '74%'}
-        ),
+        html.Div([
+            dcc.Graph(
+                id="choropleth-map",
+                style={'height': '800px', 'width': '100%'}
+            )
+        ], className='card choropleth-wrapper', style={'width': '74%'}),
         html.Div(id='county-detail-pane', className='card county-detail-pane', style={
             'width': '24%',
             'maxHeight': '800px',
@@ -180,7 +182,7 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
                 style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
                 style_header={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
                 style_cell_conditional=[
-                    {'if': {'column_id': 'county_state'}, 'textAlign': 'left'},
+                    {'if': {'column_id': 'county_state'}, 'textAlign': 'left', 'maxWidth': '200px'},
                 ])
         ])
     ]),
