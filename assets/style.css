@@ -8,7 +8,8 @@ body {
 }
 
 html, body {
-  height: 100%;
+  height: 95%;
+  overflow-y: auto;
 }
 
 /* Title Bar */
@@ -24,14 +25,30 @@ html, body {
   margin-bottom: 20px;
 }
 
+:root {
+  --card-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+                 rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.card, .summary-card, .choropleth-wrapper {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+  padding: 12px 18px;
+}
+
 .filter-item {
+  flex: 1;
   flex: 1 1 160px;
-  min-width: 140px;
-  max-width: 220px;
+  margin: 5px;
 }
 
 .filter-bar {
-  display: flex;
+  background: transparent;
+  box-shadow: none;
+  padding: 10px 25px;
+  
+  /* display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 12px;
@@ -39,6 +56,7 @@ html, body {
   background-color: #d9ebff;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  */
 }
 
 .summary-container {
@@ -53,7 +71,6 @@ html, body {
 .card {
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   padding: 12px 18px;
 }
 
@@ -69,18 +86,18 @@ html, body {
   background: #f8f9fa;
   padding: 12px 20px;
   border-radius: 8px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   text-align: center;
   flex: 1 1 200px;
-  max-width: 250px;
 }
 
-.card, .summary-card {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+.choropleth-wrapper {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: white;
 }
 
 /* Footer */
-footer {
+footer.footer {
   background-color: #003366;
   color: white;
   text-align: center;
@@ -88,7 +105,7 @@ footer {
   padding: 15px 10px 20px 10px;
   line-height: 1.6;
 }
-footer a {
+footer.footer a {
   color: white;
   text-decoration: underline;
 }
