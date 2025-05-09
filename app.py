@@ -528,8 +528,8 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
             tickfont=dict(color="#333333", family="Roboto, Arial, Helvetica, sans-serif", size=10),
             tickangle=0
         ),
-        plot_bgcolor="#f8f9fa",
-        paper_bgcolor="#f8f9fa",
+        plot_bgcolor="#fff",
+        paper_bgcolor="#fff",
         hoverlabel=dict(
             bgcolor="rgba(50, 50, 50, 0.9)",  # same as choropleth map
             font=dict(color="white"),
