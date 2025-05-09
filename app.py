@@ -70,22 +70,13 @@ server = app.server
 # Layout
 # ----------------------------------------------------------------------------
 
-app.layout = html.Div(style={'font-family': 'Roboto, Arial, Helvetica, sans-serif', 'padding': '10px'}, children=[
+app.layout = html.Div(style={'padding': '10px'}, children=[
 
-    html.H1(id='dashboard-title', style={'text-align': 'center', 'margin-bottom': '10px'}),
+    html.H1(id='dashboard-title', className="header-bar"),
 
-    html.Div(style={
-        'backgroundColor': '#003366',
-        'padding': '5px',
-        'display': 'flex',
-        'flex-wrap': 'wrap',
-        'justify-content': 'space-around',
-        'color': 'white',
-        'gap': '10px',
-        'margin-bottom': '10px'
-    }, children=[
-        html.Div([
-            html.Label("Change Type", style={'font-weight': 'bold'}),
+    html.Div(className='card filter-bar', children=[
+        html.Div(className='filter-item', children=[
+            html.Label("Change Type"),
             dcc.RadioItems(
                 id='metric-radio',
                 options=[
@@ -96,153 +87,120 @@ app.layout = html.Div(style={'font-family': 'Roboto, Arial, Helvetica, sans-seri
                 value='percent_diff',
                 labelStyle={'display': 'inline-block', 'margin-right': '5px'}
             )
-        ], style={'width': '10%', 'minWidth': '100px'}),
+        ]),
 
-        html.Div([
-            html.Label("Start Year", style={'font-weight': 'bold'}),
+        html.Div(className='filter-item', children=[
+            html.Label("Start Year"),
             dcc.Dropdown(
                 id='start-year-dropdown',
                 options=[{'label': str(year), 'value': year} for year in range(2000, 2025)],
                 value=2000,
-                clearable=False,
-                style={'backgroundColor': 'white', 'color': 'black', 'fontSize': '16px'}
+                clearable=False
             )
-        ], style={'width': '10%', 'minWidth': '100px'}),
+        ]),
 
-        html.Div([
-            html.Label("End Year", style={'font-weight': 'bold'}),
+        html.Div(className='filter-item', children=[
+            html.Label("End Year"),
             dcc.Dropdown(
                 id='end-year-dropdown',
                 options=[{'label': str(year), 'value': year} for year in range(2000, 2025)],
                 value=2024,
-                clearable=False,
-                style={'backgroundColor': 'white', 'color': 'black', 'fontSize': '16px'}
+                clearable=False
             )
-        ], style={'width': '10%', 'minWidth': '150px'}),
+        ]),
 
-        html.Div([
-            html.Label("State Filter", style={'font-weight': 'bold'}),
+        html.Div(className='filter-item', children=[
+            html.Label("State Filter"),
             dcc.Dropdown(
                 id='state-filter-dropdown',
                 options=state_options,
                 multi=True,
-                placeholder="Select states...",
-                style={'backgroundColor': 'white', 'color': 'black', 'fontSize': '16px'}
+                placeholder="Select states..."
             )
-        ], style={'width': '20%', 'minWidth': '150px'}),
+        ]),
 
-        html.Div([
-            html.Label("County Filter", style={'font-weight': 'bold'}),
+        html.Div(className='filter-item', children=[
+            html.Label("County Filter"),
             dcc.Dropdown(
                 id='county-filter-dropdown',
                 options=county_options,
                 multi=True,
-                placeholder="Select counties...",
-                style={'backgroundColor': 'white', 'color': 'black', 'fontSize': '16px'}
+                placeholder="Select counties..."
             )
-        ], style={'width': '20%', 'minWidth': '150px'}),
+        ]),
 		
-		html.Div([
-            html.Label("Population Group", style={'font-weight': 'bold'}),
+		html.Div(className='filter-item', children=[
+            html.Label("Population Group"),
             dcc.Dropdown(
                 id='population-group-dropdown',
                 options=population_groups,
                 multi=True,
                 placeholder="Select Group...",
-                clearable=True,
-                style={'backgroundColor': 'white', 'color': 'black', 'fontSize': '16px'}
+                clearable=True
             )
-        ], style={'width': '20%', 'minWidth': '150px'})
-		
+        ])
     ]),
 
-    html.Div(id="summary-banner", style={
-        'backgroundColor': '#003366',
-        'padding': '5px',
-        'display': 'flex',
-        'justify-content': 'space-around',
-        'color': 'white',
-        'flex-wrap': 'wrap',
-        'margin-bottom': '5px'
-    }),
+    html.Div(id="summary-banner", className="summary-container"),
 
     html.Div(style={
         'display': 'flex',
-        'justify-content': 'space-between',
+        'justifyContent': 'space-between',
         'alignItems': 'flex-start',
-        'margin-bottom': '20px'
+        'marginBottom': '20px'
     }, children=[
         dcc.Graph(
             id="choropleth-map",
             style={'height': '800px', 'width': '74%'}
         ),
-        html.Div(id='county-detail-pane', style={
+        html.Div(id='county-detail-pane', className='card county-detail-pane', style={
             'width': '24%',
-            'backgroundColor': '#f8f9fa',
-            'padding': '15px',
-            'border': '1px solid #ccc',
-            'borderRadius': '6px',
-            'fontFamily': 'Roboto, Arial, Helvetica, sans-serif',
-            'fontSize': '14px',
-            'color': '#333',
             'maxHeight': '800px',
             'overflowY': 'auto'
         }),
         dcc.Store(id='filtered-data')
     ]),
 
-    html.Div(style={'display': 'flex', 'justify-content': 'space-around', 'margin-top': '20px', 'flex-wrap': 'wrap'}, children=[
-        html.Div([
+    html.Div(style={'display': 'flex', 'justifyContent': 'space-around', 'marginTop': '20px', 'flexWrap': 'wrap'}, children=[
+        html.Div(className='card', style={'width': '45%'}, children=[
             html.H4("Growing Counties"),
             dash_table.DataTable(id='topcnt-table', fixed_rows={'headers': True},
-            style_table={'font-family': 'Roboto, Arial, Helvetica, sans-serif', 'height': '350px', 'overflowY': 'auto'},
-			style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
-			style_header={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
-            style_cell_conditional=[
-                {'if': {'column_id': 'county_state'}, 'textAlign': 'left'},
-            ])
-        ], style={'width': '45%'}),
+                style_table={'height': '350px', 'overflowY': 'auto'},
+                style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
+                style_header={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
+                style_cell_conditional=[
+                    {'if': {'column_id': 'county_state'}, 'textAlign': 'left'},
+                ])
+        ]),
 
-        html.Div([
+        html.Div(className='card', style={'width': '45%'}, children=[
             html.H4("Declining Counties"),
-            dash_table.DataTable(id='bottomcnt-table',  fixed_rows={'headers': True},
-            style_table={'font-family': 'Roboto, Arial, Helvetica, sans-serif', 'height': '350px', 'overflowY': 'auto'},
-			style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
-			style_header={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
-            style_cell_conditional=[
-                {'if': {'column_id': 'county_state'}, 'textAlign': 'left'},
-            ])
-        ], style={'width': '45%'}),
+            dash_table.DataTable(id='bottomcnt-table', fixed_rows={'headers': True},
+                style_table={'height': '350px', 'overflowY': 'auto'},
+                style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
+                style_header={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
+                style_cell_conditional=[
+                    {'if': {'column_id': 'county_state'}, 'textAlign': 'left'},
+                ])
+        ])
     ]),
 
     html.Footer(
         html.Div([
             html.Span(["Designed by ",
-            html.Span("Jose Simon", style={'fontWeight': 'bold'}),
-            " | Built with Python, Dash, and Plotly | Data Sources: Census.gov intercensal data files for ",
+                html.Span("Jose Simon", style={'fontWeight': 'bold'}),
+                " | Built with Python, Dash, and Plotly | Data Sources: Census.gov intercensal data files for "
             ]),
-            html.A("2000-2010", href="https://www.census.gov/data/datasets/time-series/demo/popest/intercensal-2000-2010-counties.html", target="_blank", style={'color': 'white', 'textDecoration': 'underline'}),
+            html.A("2000-2010", href="https://www.census.gov/data/datasets/time-series/demo/popest/intercensal-2000-2010-counties.html", target="_blank"),
             html.Span(", "),
-            html.A("2010-2020", href="https://www.census.gov/data/tables/time-series/demo/popest/intercensal-2010-2020-counties.html", target="_blank", style={'color': 'white', 'textDecoration': 'underline'}),
+            html.A("2010-2020", href="https://www.census.gov/data/tables/time-series/demo/popest/intercensal-2010-2020-counties.html", target="_blank"),
             html.Span(", "),
-            html.A("2020-2024", href="https://www.census.gov/data/tables/time-series/demo/popest/2020s-counties-total.html", target="_blank", style={'color': 'white', 'textDecoration': 'underline'}),
+            html.A("2020-2024", href="https://www.census.gov/data/tables/time-series/demo/popest/2020s-counties-total.html", target="_blank"),
             html.Span(" and Simon Frost "),
-            html.A("Counties GeoJSON file", href="https://gist.github.com/sdwfrost/d1c73f91dd9d175998ed166eb216994a", target="_blank", style={'color': 'white', 'textDecoration': 'underline'})
+            html.A("Counties GeoJSON file", href="https://gist.github.com/sdwfrost/d1c73f91dd9d175998ed166eb216994a", target="_blank")
         ]),
-        style={
-            'backgroundColor': '#003366',
-            'color': 'white',
-            'textAlign': 'center',
-            'fontSize': '12px',
-            'paddingTop': '15px',
-            'paddingBottom': '20px',
-            'marginTop': '40px',
-            'paddingLeft': '10px',
-            'paddingRight': '10px',
-            'lineHeight': '1.6'
-        }
+        className='footer'
     )
-
 ])
 
 # ----------------------------------------------------------------------------
@@ -343,34 +301,37 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         color = "red"
 
     summary = [
-    html.Div([
-        html.H4(f"{start_year} Population", style={'text-align': 'center'}),
-        html.H2(f"{total_start_pop:,}", style={'text-align': 'center'})
-    ]),
-    html.Div([
-        html.H4(f"{end_year} Population", style={'text-align': 'center'}),
-        html.H2(f"{total_end_pop:,}", style={'text-align': 'center'})
-    ]),
-    html.Div([
-        html.H4("Population Change", style={'text-align': 'center'}),
-        html.H2([
-            f"{pop_change:,} ({percent_change_total:.2f}% ",
-            html.Span(arrow, style={'color': color, 'font-size': '30px'}),
-            ")"
-        ], style={'text-align': 'center'})
-    ]),
-    html.Div([
-        html.H4("Counties Displayed", style={'text-align': 'center'}),
-        html.H2([
-            f"{county_count:,} (",
-            f"{increasing_count:,}",
-            html.Span("▲", style={'color': 'green'}),
-            "   ",
-            f"{decreasing_count:,}",
-            html.Span("▼", style={'color': 'red'}),
-            ")"
-        ], style={'text-align': 'center'})
-    ])
+        html.Div([
+            html.H4(f"{start_year} Population"),
+            html.H2(f"{total_start_pop:,}")
+        ], className="summary-card"),
+
+        html.Div([
+            html.H4(f"{end_year} Population"),
+            html.H2(f"{total_end_pop:,}")
+        ], className="summary-card"),
+
+        html.Div([
+            html.H4("Population Change"),
+            html.H2([
+                f"{pop_change:,} ({percent_change_total:.2f}% ",
+                html.Span(arrow, className="change-arrow"),
+                ")"
+            ])
+        ], className="summary-card"),
+
+        html.Div([
+            html.H4("Counties Displayed"),
+            html.H2([
+                f"{county_count:,} (",
+                f"{increasing_count:,}",
+                html.Span("▲", className="change-up"),
+                "   ",
+                f"{decreasing_count:,}",
+                html.Span("▼", className="change-down"),
+                ")"
+            ])
+        ], className="summary-card")
     ]
 
     hovertemplate = (
@@ -428,7 +389,13 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         hovertemplate=hovertemplate
     )
 
-    fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+    fig.update_layout(
+        margin={"r":0,"t":0,"l":0,"b":0},
+        coloraxis_colorbar=dict(
+            title=dict(text='Change', font=dict(family="Roboto, Arial, Helvetica, sans-serif", size=14, color="#333333")),
+            tickfont=dict(family="Roboto, Arial, Helvetica, sans-serif", size=12, color="#333333")
+        )
+    )
 
     growing = merged[merged[metric_type] > 0].copy()
     declining = merged[merged[metric_type] < 0].copy()
