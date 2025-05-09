@@ -62,8 +62,8 @@ html, body {
   flex-wrap: wrap;
   justify-content: center;
   gap: 15px;
-  margin: 20px 0;
-  padding: 10px 25px;
+  margin: 0px 0;
+  padding: 0px 25px;
 }
 
 .card {

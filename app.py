@@ -147,7 +147,9 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
         'display': 'flex',
         'justifyContent': 'space-between',
         'alignItems': 'flex-start',
-        'marginBottom': '20px'
+        'marginBottom': '20px',
+        'padding-left': '25px',
+        'padding-right': '25px'
     }, children=[
         html.Div([
             dcc.Graph(
