@@ -150,13 +150,12 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
         'marginTop': '20px',
         'marginBottom': '20px',
         'padding-left': '25px',
-        'padding-right': '25px',
-        'height': '800px'
+        'padding-right': '25px'
     }, children=[
         html.Div([
             dcc.Graph(
                 id="choropleth-map",
-                style={'height': '100%', 'width': '100%'}
+                style={'height': '800px', 'width': '100%'}
             )
         ], className='card choropleth-wrapper', style={'width': '74%'}),
         html.Div(id='county-detail-pane', className='card county-detail-pane', style={
@@ -168,7 +167,7 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
     ]),
 
     html.Div(style={'display': 'flex', 'justifyContent': 'space-between', 'marginTop': '20px', 'marginBottom': '20px', 'flexWrap': 'wrap'}, children=[
-        html.Div(className='card', style={'width': '49%'}, children=[
+        html.Div(className='card', style={'width': '48%'}, children=[
             html.H4("Growing Counties"),
             dash_table.DataTable(id='topcnt-table', fixed_rows={'headers': True},
                 style_table={'height': '350px', 'overflowY': 'auto'},
@@ -179,7 +178,7 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
                 ])
         ]),
 
-        html.Div(className='card', style={'width': '49%'}, children=[
+        html.Div(className='card', style={'width': '48%'}, children=[
             html.H4("Declining Counties"),
             dash_table.DataTable(id='bottomcnt-table', fixed_rows={'headers': True},
                 style_table={'height': '350px', 'overflowY': 'auto'},
