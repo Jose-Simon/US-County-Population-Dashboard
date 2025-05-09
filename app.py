@@ -171,7 +171,7 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
                 style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
                 style_header={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
                 style_cell_conditional=[
-                    {'if': {'column_id': 'county_state'}, 'textAlign': 'left', 'width': '200px', 'maxWidth': '200px'},
+                    {'if': {'column_id': 'county_state'}, 'textAlign': 'left', 'width': '300px', 'maxWidth': '400px'},
                 ])
         ]),
 
@@ -182,7 +182,7 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
                 style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
                 style_header={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
                 style_cell_conditional=[
-                    {'if': {'column_id': 'county_state'}, 'textAlign': 'left', 'width': '200px', 'maxWidth': '200px'},
+                    {'if': {'column_id': 'county_state'}, 'textAlign': 'left', 'width': '300px', 'maxWidth': '400px'},
                 ])
         ])
     ]),
