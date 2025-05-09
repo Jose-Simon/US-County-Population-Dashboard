@@ -152,18 +152,18 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
         html.Div([
             dcc.Graph(
                 id="choropleth-map",
-                style={'height': '800px', 'width': '100%'}
+                style={'height': '100%', 'width': '100%'}
             )
         ], className='card choropleth-wrapper', style={'width': '74%'}),
         html.Div(id='county-detail-pane', className='card county-detail-pane', style={
             'width': '24%',
-            'maxHeight': '800px',
+            'maxHeight': '100%',
             'overflowY': 'auto'
         }),
         dcc.Store(id='filtered-data')
     ]),
 
-    html.Div(style={'display': 'flex', 'justifyContent': 'space-around', 'marginTop': '20px', 'marginBottom': '40px', 'flexWrap': 'wrap'}, children=[
+    html.Div(style={'display': 'flex', 'justifyContent': 'space-around', 'marginTop': '20px', 'marginBottom': '20px', 'flexWrap': 'wrap'}, children=[
         html.Div(className='card', style={'width': '45%'}, children=[
             html.H4("Growing Counties"),
             dash_table.DataTable(id='topcnt-table', fixed_rows={'headers': True},
@@ -171,7 +171,7 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
                 style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
                 style_header={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
                 style_cell_conditional=[
-                    {'if': {'column_id': 'county_state'}, 'textAlign': 'left'},
+                    {'if': {'column_id': 'county_state'}, 'textAlign': 'left', 'width': '200px', 'maxWidth': '200px'},
                 ])
         ]),
 
@@ -182,7 +182,7 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
                 style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
                 style_header={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
                 style_cell_conditional=[
-                    {'if': {'column_id': 'county_state'}, 'textAlign': 'left', 'maxWidth': '200px'},
+                    {'if': {'column_id': 'county_state'}, 'textAlign': 'left', 'width': '200px', 'maxWidth': '200px'},
                 ])
         ])
     ]),
