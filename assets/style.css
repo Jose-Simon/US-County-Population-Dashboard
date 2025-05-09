@@ -52,3 +52,31 @@ footer a {
   border-top: 1px solid #cccccc;
   margin: 20px 0;
 }
+
+.summary-card h4 {
+  font-size: 13px;
+  color: #666;
+  margin: 2px 0;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.summary-card h2 {
+  font-size: 30px;
+  margin: 4px 0;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.change-arrow {
+  font-size: 30px;
+  color: green; /* overridden dynamically if needed */
+}
+
+.change-up {
+  color: green;
+}
+
+.change-down {
+  color: red;
+}
