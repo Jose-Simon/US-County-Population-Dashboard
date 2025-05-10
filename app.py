@@ -166,7 +166,7 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
 
     html.Div(style={'display': 'flex', 'justifyContent': 'space-between', 'marginTop': '20px', 'marginBottom': '20px', 'flexWrap': 'wrap'}, children=[
         html.Div(className='card', style={'width': '48%'}, children=[
-            html.H4("Growing Counties"),
+            html.H4("Top Growing Counties"),
             dash_table.DataTable(id='topcnt-table', fixed_rows={'headers': True},
                 style_table={'height': '350px', 'overflowY': 'auto'},
                 style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
@@ -177,7 +177,7 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
         ]),
 
         html.Div(className='card', style={'width': '48%'}, children=[
-            html.H4("Declining Counties"),
+            html.H4("Top Declining Counties"),
             dash_table.DataTable(id='bottomcnt-table', fixed_rows={'headers': True},
                 style_table={'height': '350px', 'overflowY': 'auto'},
                 style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
@@ -318,7 +318,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
 
     states_count = len(state_summary)
     states_increasing_count = state_summary['is_increasing'].sum()
-    states_decreasing_count = states_count - states_increasing
+    states_decreasing_count = states_count - states_increasing_count
     
     # Summary banner calculation
     summary = [
