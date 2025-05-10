@@ -135,7 +135,7 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
                 id='population-group-dropdown',
                 options=population_groups,
                 multi=True,
-                placeholder="Select Group...",
+                placeholder="Select population group...",
                 clearable=True
             )
         ])
@@ -296,10 +296,6 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     total_end_pop = merged['Population_end'].sum()
     pop_change = total_end_pop - total_start_pop
     percent_change_total = (total_end_pop - total_start_pop) / total_start_pop * 100
-    county_count = len(merged)
-    increasing_count = (merged[metric_type] > 0).sum()
-    decreasing_count = (merged[metric_type] <= 0).sum()
-
     if percent_change_total >= 0:
         arrow = "\u25B2"
         color = "green"
@@ -307,6 +303,24 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         arrow = "\u25BC"
         color = "red"
 
+    # County stats
+    county_count = len(merged)
+    increasing_count = (merged[metric_type] > 0).sum()
+    decreasing_count = (merged[metric_type] <= 0).sum()
+
+    # State stats
+    state_summary = merged.groupby('State').agg({
+        'Population_start': 'sum',
+        'Population_end': 'sum'
+    }).reset_index()
+
+    state_summary['is_increasing'] = state_summary['Population_end'] > state_summary['Population_start']
+
+    states_count = len(state_summary)
+    states_increasing_count = state_summary['is_increasing'].sum()
+    states_decreasing_count = states_count - states_increasing
+    
+    # Summary banner calculation
     summary = [
         html.Div([
             html.H4(f"{start_year} Population"),
@@ -321,8 +335,21 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         html.Div([
             html.H4("Population Change"),
             html.H2([
-                f"{pop_change:,} ({percent_change_total:.2f}% ",
+                f"{pop_change:,} ({percent_change_total:.2f}%",
                 html.Span(arrow, className="change-arrow"),
+                ")"
+            ])
+        ], className="summary-card"),
+
+        html.Div([
+            html.H4("States Displayed"),
+            html.H2([
+                f"{states_count:,} (",
+                f"{states_increasing_count:,}",
+                html.Span("▲", className="change-up"),
+                "   ",
+                f"{states_decreasing_count:,}",
+                html.Span("▼", className="change-down"),
                 ")"
             ])
         ], className="summary-card"),
