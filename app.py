@@ -182,7 +182,7 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
                 html.H4("Top Declining Counties"),
                 dash_table.DataTable(id='bottomcnt-table', fixed_rows={'headers': True},
                     style_table={'height': '350px', 'overflowY': 'auto'},
-                    style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
+                    style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right', 'padding': '0px 12px'},
                     style_header={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
                     style_cell_conditional=[
                         {'if': {'column_id': 'county_state'}, 'textAlign': 'left', 'width': '300px', 'maxWidth': '400px'},
@@ -454,8 +454,10 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         topcnt[col] = topcnt[col].apply(lambda x: f"{int(x):,}")
         bottomcnt[col] = bottomcnt[col].apply(lambda x: f"{int(x):,}")
 
-    topcnt['percent_diff'] = topcnt['percent_diff'].apply(lambda x: f"{x:.2f}%")
-    bottomcnt['percent_diff'] = bottomcnt['percent_diff'].apply(lambda x: f"{x:.2f}%")
+    topcnt['numeric_diff'] = topcnt['numeric_diff'].apply(lambda x: f"{int(x):+,.0f}")
+    bottomcnt['numeric_diff'] = bottomcnt['numeric_diff'].apply(lambda x: f"{int(x):+,.0f}")
+    topcnt['percent_diff'] = topcnt['percent_diff'].apply(lambda x: f"{x:+,.2f}%")
+    bottomcnt['percent_diff'] = bottomcnt['percent_diff'].apply(lambda x: f"{x:+,.2f}%")
 
     return summary, fig, topcnt.to_dict('records'), columns, bottomcnt.to_dict('records'), columns, merged.to_dict('records')
 
