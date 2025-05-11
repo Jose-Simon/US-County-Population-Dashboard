@@ -36,7 +36,7 @@ county_state_to_fips_map = dict(zip(county_to_fips['county_state'], county_to_fi
 # 3. Load GeoJSON
 with open(geojson_path, 'r') as f:
     counties_geojson = json.load(f)
-	
+    
 print("CSV and GeoJSON loaded successfully. Dataframe shape:", df.shape)
 
 # 4. Build the state and county options
@@ -128,8 +128,8 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
                 placeholder="Select counties..."
             )
         ]),
-		
-		html.Div(className='filter-item', children=[
+        
+        html.Div(className='filter-item', children=[
             html.Label("Population Group"),
             dcc.Dropdown(
                 id='population-group-dropdown',
@@ -142,49 +142,52 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
     ]),
 
     html.Div(id="summary-banner", className="summary-container"),
-
-    html.Div(className='main-content-wrapper', style={
-        'display': 'flex',
-        'justifyContent': 'space-between',
-        'alignItems': 'flex-start',
-        'marginTop': '20px',
-        'marginBottom': '20px'
-    }, children=[
-        html.Div([
-            dcc.Graph(
-                id="choropleth-map",
-                style={'height': '800px', 'width': '100%'}
-            )
-        ], className='card choropleth-wrapper', style={'width': '74%'}),
-        html.Div(id='county-detail-pane', className='card county-detail-pane', style={
-            'width': '24%',
-            'maxHeight': '100%',
-            'overflowY': 'auto'
-        }),
-        dcc.Store(id='filtered-data')
-    ]),
-
-    html.Div(className="top-counties-container", style={'display': 'flex', 'justifyContent': 'space-between', 'marginTop': '20px', 'marginBottom': '20px', 'flexWrap': 'wrap'}, children=[
-        html.Div(className='card', style={'width': '48%'}, children=[
-            html.H4("Top Growing Counties"),
-            dash_table.DataTable(id='topcnt-table', fixed_rows={'headers': True},
-                style_table={'height': '350px', 'overflowY': 'auto'},
-                style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right', 'padding': '0px 12px'},
-                style_header={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
-                style_cell_conditional=[
-                    {'if': {'column_id': 'county_state'}, 'textAlign': 'left', 'width': '300px', 'maxWidth': '400px'},
-                ])
+    
+    html.Div(className='main-content-section', children=[
+        html.Div(className='main-content-wrapper', style={
+            'display': 'flex',
+            'justifyContent': 'space-between',
+            'alignItems': 'flex-start',
+            'marginTop': '20px',
+            'marginBottom': '20px'
+        }, children=[
+            html.Div([
+                dcc.Graph(
+                    id="choropleth-map",
+                    style={'height': '800px', 'width': '100%'}
+                )
+            ], className='card choropleth-wrapper', style={'width': '59.5%'}),
+            html.Div(id='county-detail-pane', className='card county-detail-pane', style={
+                'width': '38.5%',
+                'height': '100%',
+                'maxHeight': '100%',
+                'overflowY': 'auto'
+            }),
+            dcc.Store(id='filtered-data')
         ]),
+        
+        html.Div(className="top-counties-container", style={'display': 'flex', 'justifyContent': 'space-between', 'marginTop': '20px', 'marginBottom': '20px', 'flexWrap': 'wrap'}, children=[
+            html.Div(className='card', style={'width': '48%'}, children=[
+                html.H4("Top Growing Counties"),
+                dash_table.DataTable(id='topcnt-table', fixed_rows={'headers': True},
+                    style_table={'height': '350px', 'overflowY': 'auto'},
+                    style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right', 'padding': '0px 12px'},
+                    style_header={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
+                    style_cell_conditional=[
+                        {'if': {'column_id': 'county_state'}, 'textAlign': 'left', 'width': '300px', 'maxWidth': '400px'},
+                    ])
+            ]),
 
-        html.Div(className='card', style={'width': '48%'}, children=[
-            html.H4("Top Declining Counties"),
-            dash_table.DataTable(id='bottomcnt-table', fixed_rows={'headers': True},
-                style_table={'height': '350px', 'overflowY': 'auto'},
-                style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
-                style_header={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
-                style_cell_conditional=[
-                    {'if': {'column_id': 'county_state'}, 'textAlign': 'left', 'width': '300px', 'maxWidth': '400px'},
-                ])
+            html.Div(className='card', style={'width': '48%'}, children=[
+                html.H4("Top Declining Counties"),
+                dash_table.DataTable(id='bottomcnt-table', fixed_rows={'headers': True},
+                    style_table={'height': '350px', 'overflowY': 'auto'},
+                    style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
+                    style_header={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
+                    style_cell_conditional=[
+                        {'if': {'column_id': 'county_state'}, 'textAlign': 'left', 'width': '300px', 'maxWidth': '400px'},
+                    ])
+            ])
         ])
     ]),
 
@@ -409,7 +412,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         scope="usa",
         labels={metric_type: 'Change'}
     )
-	
+    
     fig.update_traces(
         marker_line_width=merged['selected'].apply(lambda x: 10 if x else 0.3),
         marker_line_color=merged['selected'].apply(lambda x: '#66FF00' if x else 'gray'),
@@ -491,7 +494,7 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
     if not fips:
        return "Click on a county in the map or table to view details."
 
-    dff = df[df['FIPS'] == fips].sort_values(by='Year')	
+    dff = df[df['FIPS'] == fips].sort_values(by='Year')    
     dff = dff[(dff['Year'] >= start_year) & (dff['Year'] <= end_year)].copy()
 
     if dff.empty:
@@ -519,7 +522,7 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
     max_val = dff['YoY %'].max()
     min_val = dff['YoY %'].min()
     y_range = 1.1 * max(abs(max_val), abs(min_val))
-	
+    
     filtered_df = pd.DataFrame(filtered_data)
     total = len(filtered_df)
 
@@ -584,16 +587,6 @@ def update_county_detail(map_click, top_cell, bottom_cell, start_year, end_year,
         customdata=dff[['county_state', 'Year Label', 'Population', 'YoY_fmt', 'YoY_pct_fmt']],
         hovertemplate=hovertemplate
     )
-
-    # DEBUG
-    # debug_text = html.Pre([
-    #     f"FIPS: {fips}\n",
-    #     f"map_click: {map_click}\n",
-    #    f"top_cell: {top_cell}\n",
-    #    f"bottom_cell: {bottom_cell}\n",
-    #    f"start_year: {start_year}, end_year: {end_year}\n",
-    #    f"filtered_data length: {len(filtered_data) if filtered_data else 0}\n",
-    #])
 
     return [
         html.Div([

@@ -193,6 +193,11 @@ footer.footer a {
   color: green; /* overridden dynamically if needed */
   }
 
+  .main-content-section {
+    margin-right: 20px;
+	  padding-right: 0px;
+  }
+
   .main-content-wrapper {
     display: flex;
     flex-direction: column !important;
