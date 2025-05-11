@@ -156,9 +156,9 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
                     id="choropleth-map",
                     style={'height': '800px', 'width': '100%'}
                 )
-            ], className='card choropleth-wrapper', style={'width': '59.5%'}),
+            ], className='card choropleth-wrapper', style={'width': '74%'}),
             html.Div(id='county-detail-pane', className='card county-detail-pane', style={
-                'width': '38.5%',
+                'width': '24%',
                 'height': '100%',
                 'maxHeight': '100%',
                 'overflowY': 'auto'
