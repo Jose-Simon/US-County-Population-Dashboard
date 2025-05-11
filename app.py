@@ -336,7 +336,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
             html.H4("Population Change"),
             html.H2([
                 f"{pop_change:,} ({percent_change_total:.2f}%",
-                html.Span(arrow, className="change-arrow"),
+                html.Span(arrow, className="change-arrow", style={'color': color}),
                 ")"
             ])
         ], className="summary-card"),
@@ -451,8 +451,8 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         topcnt[col] = topcnt[col].apply(lambda x: f"{int(x):,}")
         bottomcnt[col] = bottomcnt[col].apply(lambda x: f"{int(x):,}")
 
-    topcnt['percent_diff'] = topcnt['percent_diff'].apply(lambda x: f"{x:.2f}%")
-    bottomcnt['percent_diff'] = bottomcnt['percent_diff'].apply(lambda x: f"{x:.2f}%")
+    topcnt['percent_diff'] = topcnt['percent_diff'].apply(lambda x: f"{x:+.2f}%")
+    bottomcnt['percent_diff'] = bottomcnt['percent_diff'].apply(lambda x: f"{x:+.2f}%")
 
     return summary, fig, topcnt.to_dict('records'), columns, bottomcnt.to_dict('records'), columns, merged.to_dict('records')
 
