@@ -450,14 +450,18 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         {"name": "Change %", "id": "percent_diff"}
     ]
 
-    for col in ['Population_start', 'Population_end', 'numeric_diff']:
+    for col in ['Population_start', 'Population_end']:
         topcnt[col] = topcnt[col].apply(lambda x: f"{int(x):,}")
         bottomcnt[col] = bottomcnt[col].apply(lambda x: f"{int(x):,}")
 
-    topcnt['numeric_diff'] = topcnt['numeric_diff'].apply(lambda x: f"{x:+,.0f}")
-    bottomcnt['numeric_diff'] = bottomcnt['numeric_diff'].apply(lambda x: f"{x:+,.0f}")
-    topcnt['percent_diff'] = topcnt['percent_diff'].apply(lambda x: f"{x:+,.2f}%")
-    bottomcnt['percent_diff'] = bottomcnt['percent_diff'].apply(lambda x: f"{x:+,.2f}%")
+    topcnt['numeric_diff'] = topcnt['numeric_diff'].apply(lambda x: f"{x:+,.0f}" if pd.notnull(x) else "")
+    bottomcnt['numeric_diff'] = bottomcnt['numeric_diff'].apply(lambda x: f"{x:+,.0f}" if pd.notnull(x) else "")
+
+    topcnt['percent_diff'] = pd.to_numeric(topcnt['percent_diff'], errors='coerce') \
+        .apply(lambda x: f"{x:+.2f}%" if pd.notnull(x) else "")
+
+    bottomcnt['percent_diff'] = pd.to_numeric(bottomcnt['percent_diff'], errors='coerce') \
+        .apply(lambda x: f"{x:+.2f}%" if pd.notnull(x) else "")
 
     return summary, fig, topcnt.to_dict('records'), columns, bottomcnt.to_dict('records'), columns, merged.to_dict('records')
 
