@@ -51,11 +51,8 @@ population_groups = [
     {"label": "500K+", "value": "1"},
     {"label": "100K-500K", "value": "2"},
     {"label": "50K-100K", "value": "3"},
-    {"label": "30K-50K", "value": "4"},
-    {"label": "20K-30K", "value": "5"},
-    {"label": "10K-20K", "value": "6"},
-    {"label": "5K-10K", "value": "7"},
-    {"label": "<5K", "value": "8"}
+    {"label": "10K-50K", "value": "4"},
+    {"label": "<10K", "value": "5"}
 ]
 
 # ----------------------------------------------------------------------------
@@ -76,7 +73,10 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
 
     html.Div(className='filter-bar', children=[
         html.Div(className='filter-item', children=[
-            html.Label("Change Type"),
+            html.Label(["Change Type",
+            html.Span("ⓘ", title="Select how population change is calculated: absolute numbers, percentage, or percentage normalized to overall change of the selected group",
+              style={'cursor': 'help', 'fontSize': '14px', 'marginLeft': '4px'})
+              ]),
             dcc.RadioItems(
                 id='metric-radio',
                 options=[
@@ -90,7 +90,10 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
         ]),
 
         html.Div(className='filter-item', children=[
-            html.Label("Start Year"),
+            html.Label(["Start Year",
+            html.Span("ⓘ", title="Select first year of comparison",
+              style={'cursor': 'help', 'fontSize': '14px', 'marginLeft': '4px'})
+              ]),
             dcc.Dropdown(
                 id='start-year-dropdown',
                 options=[{'label': str(year), 'value': year} for year in range(2000, 2025)],
@@ -100,7 +103,10 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
         ]),
 
         html.Div(className='filter-item', children=[
-            html.Label("End Year"),
+            html.Label(["End Year",
+            html.Span("ⓘ", title="Select last year of comparison",
+              style={'cursor': 'help', 'fontSize': '14px', 'marginLeft': '4px'})
+              ]),
             dcc.Dropdown(
                 id='end-year-dropdown',
                 options=[{'label': str(year), 'value': year} for year in range(2000, 2025)],
@@ -110,7 +116,10 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
         ]),
 
         html.Div(className='filter-item', children=[
-            html.Label("State Filter"),
+            html.Label(["State Filter",
+            html.Span("ⓘ", title="Select states to limit the map and statistics",
+              style={'cursor': 'help', 'fontSize': '14px', 'marginLeft': '4px'})
+              ]),
             dcc.Dropdown(
                 id='state-filter-dropdown',
                 options=state_options,
@@ -120,7 +129,10 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
         ]),
 
         html.Div(className='filter-item', children=[
-            html.Label("County Filter"),
+            html.Label(["County Filter",
+            html.Span("ⓘ", title="Select counties to limit the map and statistics",
+              style={'cursor': 'help', 'fontSize': '14px', 'marginLeft': '4px'})
+              ]),
             dcc.Dropdown(
                 id='county-filter-dropdown',
                 options=county_options,
@@ -130,7 +142,21 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
         ]),
         
         html.Div(className='filter-item', children=[
-            html.Label("Population Group"),
+            html.Div(style={'display': 'flex', 'alignItems': 'center', 'flexWrap': 'wrap'}, children=[
+                html.Label("Population Group", style={'marginRight': '0px'}),
+                html.Span("ⓘ", title="Select the population group size in the selected year",
+                          style={'cursor': 'help', 'fontSize': '14px', 'marginLeft': '4px', 'marginRight': '4px'}),
+                dcc.RadioItems(
+                    id='population-group-year',
+                    options=[
+                        {'label': 'Start Year', 'value': 'pop_start_year'},
+                        {'label': 'End Year', 'value': 'pop_end_year'}
+                    ],
+                    value='pop_start_year',
+                    labelStyle={'display': 'inline-block', 'marginRight': '8px'},
+                    style={'marginTop': '-2px'}  # tweak for better vertical alignment
+                ),
+            ]),
             dcc.Dropdown(
                 id='population-group-dropdown',
                 options=population_groups,
@@ -239,13 +265,14 @@ def update_title(start_year, end_year):
     Input('state-filter-dropdown', 'value'),
     Input('county-filter-dropdown', 'value'),
     Input('population-group-dropdown', 'value'),
+    Input('population-group-year', 'value'),
     Input('choropleth-map', 'clickData'),
     Input('topcnt-table', 'active_cell'),
     Input('bottomcnt-table', 'active_cell'),
     State('topcnt-table', 'data'),
     State('bottomcnt-table', 'data')
 )
-def update_dashboard(start_year, end_year, metric_type, selected_states, selected_counties, selected_group, map_click, top_cell, bottom_cell, top_data, bottom_data):
+def update_dashboard(start_year, end_year, metric_type, selected_states, selected_counties, selected_group, selected_group_year, map_click, top_cell, bottom_cell, top_data, bottom_data):
     if metric_type == 'percent_diff_normalized':
         percent_diff_normalized = True
         metric_type = 'percent_diff'
@@ -275,11 +302,13 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     merged = pd.merge(pop_start, pop_end, on='FIPS', suffixes=('_start', '_end'))
     merged = merged.merge(dff[['FIPS', 'State', 'County']].drop_duplicates(), on='FIPS')
 
-    bins = [-1, 4999, 9999, 19999, 29999, 49999, 99999, 499999, float('inf')]
-    labels = ['8', '7', '6', '5', '4', '3', '2', '1']
-    merged['PopGroup'] = pd.cut(merged['Population_start'], bins=bins, labels=labels)
+    bins = [-1, 9999, 49999, 99999, 499999, float('inf')]
+    labels = ['5', '4', '3', '2', '1']    
+    pop_group_column = 'Population_start' if selected_group_year == 'pop_start_year' else 'Population_end'
+    merged['PopGroup'] = pd.cut(merged[pop_group_column], bins=bins, labels=labels)
     if selected_group:
         merged = merged[merged['PopGroup'].isin(selected_group)]
+    
     merged['selected'] = merged['FIPS'] == selected_fips
 
     merged['numeric_diff'] = merged['Population_end'] - merged['Population_start']
