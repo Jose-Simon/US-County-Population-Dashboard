@@ -343,15 +343,27 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     # State stats
     state_summary = merged.groupby('State').agg({
         'Population_start': 'sum',
-        'Population_end': 'sum'
+        'Population_end': 'sum',
+        'numeric_diff': 'sum'
     }).reset_index()
 
+    state_summary['percent_diff'] = (state_summary['numeric_diff'] / state_summary['Population_start']) * 100
     state_summary['is_increasing'] = state_summary['Population_end'] > state_summary['Population_start']
 
     states_count = len(state_summary)
     states_increasing_count = state_summary['is_increasing'].sum()
     states_decreasing_count = states_count - states_increasing_count
-    
+
+    if metric_type == 'numeric_diff':
+        sorted_growing = state_summary[state_summary['is_increasing']].nlargest(10, 'numeric_diff')
+        sorted_declining = state_summary[~state_summary['is_increasing']].nsmallest(10, 'numeric_diff')
+    else:
+        sorted_growing = state_summary[state_summary['is_increasing']].nlargest(10, 'percent_diff')
+        sorted_declining = state_summary[~state_summary['is_increasing']].nsmallest(10, 'percent_diff')
+
+    growing_tooltip = "Growing: " + ", ".join(sorted_growing['State'].tolist()) if len(sorted_growing) <= 10 else ""
+    declining_tooltip = "Declining: " + ", ".join(sorted_declining['State'].tolist()) if len(sorted_declining) <= 10 else ""
+  
     # Summary banner calculation
     summary = [
         html.Div([
@@ -378,10 +390,10 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
             html.H2([
                 f"{states_count:,} (",
                 f"{states_increasing_count:,}",
-                html.Span("▲", className="change-up"),
+                html.Span("▲", className="change-up", title=growing_tooltip),
                 "   ",
                 f"{states_decreasing_count:,}",
-                html.Span("▼", className="change-down"),
+                html.Span("▼", className="change-down", title=declining_tooltip),
                 ")"
             ])
         ], className="summary-card"),
