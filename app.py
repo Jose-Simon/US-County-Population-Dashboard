@@ -143,7 +143,7 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
 
     html.Div(id="summary-banner", className="summary-container"),
 
-    html.Div(style={
+    html.Div(className='main-content-wrapper', style={
         'display': 'flex',
         'justifyContent': 'space-between',
         'alignItems': 'flex-start',
@@ -164,7 +164,7 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
         dcc.Store(id='filtered-data')
     ]),
 
-    html.Div(style={'display': 'flex', 'justifyContent': 'space-between', 'marginTop': '20px', 'marginBottom': '20px', 'flexWrap': 'wrap'}, children=[
+    html.Div(className="top-counties-container", style={'display': 'flex', 'justifyContent': 'space-between', 'marginTop': '20px', 'marginBottom': '20px', 'flexWrap': 'wrap'}, children=[
         html.Div(className='card', style={'width': '48%'}, children=[
             html.H4("Top Growing Counties"),
             dash_table.DataTable(id='topcnt-table', fixed_rows={'headers': True},
@@ -180,7 +180,7 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
             html.H4("Top Declining Counties"),
             dash_table.DataTable(id='bottomcnt-table', fixed_rows={'headers': True},
                 style_table={'height': '350px', 'overflowY': 'auto'},
-                style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right', 'padding': '0px 12px'},
+                style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right'},
                 style_header={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
                 style_cell_conditional=[
                     {'if': {'column_id': 'county_state'}, 'textAlign': 'left', 'width': '300px', 'maxWidth': '400px'},
@@ -336,7 +336,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
             html.H4("Population Change"),
             html.H2([
                 f"{pop_change:,} ({percent_change_total:.2f}%",
-                html.Span(arrow, className="change-arrow", style={'color': color}),
+                html.Span(arrow, className="change-arrow"),
                 ")"
             ])
         ], className="summary-card"),
@@ -451,8 +451,8 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         topcnt[col] = topcnt[col].apply(lambda x: f"{int(x):,}")
         bottomcnt[col] = bottomcnt[col].apply(lambda x: f"{int(x):,}")
 
-    topcnt['percent_diff'] = topcnt['percent_diff'].apply(lambda x: f"{x:+.2f}%")
-    bottomcnt['percent_diff'] = bottomcnt['percent_diff'].apply(lambda x: f"{x:+.2f}%")
+    topcnt['percent_diff'] = topcnt['percent_diff'].apply(lambda x: f"{x:.2f}%")
+    bottomcnt['percent_diff'] = bottomcnt['percent_diff'].apply(lambda x: f"{x:.2f}%")
 
     return summary, fig, topcnt.to_dict('records'), columns, bottomcnt.to_dict('records'), columns, merged.to_dict('records')
 

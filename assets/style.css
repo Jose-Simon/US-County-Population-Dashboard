@@ -1,11 +1,3 @@
-@media (max-width: 1200px) {
-  .filter-bar {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 10px;
-  }
-
 body {
   background-color: #d9ebff;
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
@@ -35,8 +27,9 @@ html, body {
 }
 
 :root {
-  --card-shadow: rgba(50, 50, 93, 0.25) 0px 8px 12px -2px, 
-                 rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  --card-shadow: 
+  rgba(50, 50, 93, 0.25) 0px 8px 12px -2px, 
+  rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
 .card, .summary-card, .choropleth-wrapper {
@@ -147,4 +140,84 @@ footer.footer a {
 
 .change-down {
   color: red;
+}
+
+@media (max-width: 1200px) {
+  .filter-bar {
+    display: flex;
+	flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .filter-item {
+    flex: 1 1 calc(33% - 20px);
+    min-width: 160px;
+  }
+
+  .filter-item label {
+    font-size: 13px;
+  }
+  
+  .filter-item .Select-placeholder, .filter-item .Select-control {
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .summary-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+	justify-content: center;
+	max-width: 1200px;
+    /* margin-top: 10px; */
+	margin: 0 auto;
+	padding: 0 10px;
+  }
+  
+  .summary-card h4 {
+    font-size: 18px;
+    /* line-height: 1.2; */
+  }
+  
+  .summary-card h2 {
+    font-size: 24px;
+    /* line-height: 1.2; */
+  }
+  
+  .change-arrow {
+  font-size: 24px;
+  color: green; /* overridden dynamically if needed */
+  }
+
+  .main-content-wrapper {
+    display: flex;
+    flex-direction: column !important;
+  }
+
+  .choropleth-wrapper,
+  .county-detail-pane {
+    width: 100% !important;
+    margin-right: 0;
+  }
+
+  .county-detail-pane {
+    margin-top: 20px;
+  }
+
+  .top-counties-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .top-counties-container > .card {
+    width: 100% !important;
+  }
+
+  .top-counties-container > .card:first-child {
+    margin-bottom: 20px;
+  }
 }
