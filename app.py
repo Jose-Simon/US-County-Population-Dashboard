@@ -454,8 +454,8 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         topcnt[col] = topcnt[col].apply(lambda x: f"{int(x):,}")
         bottomcnt[col] = bottomcnt[col].apply(lambda x: f"{int(x):,}")
 
-    topcnt['numeric_diff'] = topcnt['numeric_diff'].apply(lambda x: f"{int(x):+,.0f}")
-    bottomcnt['numeric_diff'] = bottomcnt['numeric_diff'].apply(lambda x: f"{int(x):+,.0f}")
+    topcnt['numeric_diff'] = topcnt['numeric_diff'].apply(lambda x: f"{x:+,.0f}")
+    bottomcnt['numeric_diff'] = bottomcnt['numeric_diff'].apply(lambda x: f"{x:+,.0f}")
     topcnt['percent_diff'] = topcnt['percent_diff'].apply(lambda x: f"{x:+,.2f}%")
     bottomcnt['percent_diff'] = bottomcnt['percent_diff'].apply(lambda x: f"{x:+,.2f}%")
 
