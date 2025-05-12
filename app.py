@@ -380,7 +380,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
             html.H4("Population Change"),
             html.H2([
                 f"{pop_change:,} ({percent_change_total:.2f}%",
-                html.Span(arrow, className="change-arrow"),
+                html.Span(arrow, className="change-arrow"), style={'color': color}),
                 ")"
             ])
         ], className="summary-card"),
