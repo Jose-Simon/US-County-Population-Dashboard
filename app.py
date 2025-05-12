@@ -31,6 +31,7 @@ df = df.dropna(subset=['FIPS', 'State', 'County', 'Year', 'Population'])
 
 county_to_fips = df[['FIPS', 'County', 'State']].drop_duplicates()
 county_to_fips['county_state'] = county_to_fips['County'] + ", " + county_to_fips['State']
+county_to_fips_sorted = county_to_fips.sort_values(by='county_state')
 county_state_to_fips_map = dict(zip(county_to_fips['county_state'], county_to_fips['FIPS']))
 
 # 3. Load GeoJSON
@@ -42,8 +43,8 @@ print("CSV and GeoJSON loaded successfully. Dataframe shape:", df.shape)
 # 4. Build the state and county options
 state_options = [{'label': state, 'value': state} for state in sorted(df['State'].dropna().astype(str).unique())]
 county_options = [
-    {'label': f"{row['County']}, {row['State']}", 'value': row['FIPS']}
-    for _, row in df[['FIPS', 'County', 'State']].drop_duplicates().iterrows()
+    {'label': row['county_state'], 'value': row['FIPS']}
+    for _, row in county_to_fips_sorted.iterrows()
 ]
 
 # 5. Define Population Groups
