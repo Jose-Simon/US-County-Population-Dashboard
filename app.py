@@ -403,14 +403,14 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
                 f"{states_count:,} (",
 
                 html.Span([
-                    f"{states_increasing_count:,} ",
+                    f"{states_increasing_count:,}",
                     html.Span("▲", className="change-up")
                 ], title=growing_tooltip, style={'cursor': 'help'}),
 
                 "   ",
 
                 html.Span([
-                    f"{states_decreasing_count:,} ",
+                    f"{states_decreasing_count:,}",
                     html.Span("▼", className="change-down")
                 ], title=declining_tooltip, style={'cursor': 'help'}),
 
