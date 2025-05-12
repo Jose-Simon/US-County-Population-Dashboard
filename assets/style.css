@@ -149,7 +149,7 @@ footer.footer a {
   font-size: 18px;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1600px) {
   .filter-bar {
     display: flex;
 	flex-direction: row;

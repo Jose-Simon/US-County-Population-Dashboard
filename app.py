@@ -201,7 +201,7 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
             dcc.Store(id='filtered-data')
         ]),
         
-        html.Div(className="top-counties-container", style={'display': 'flex', 'justifyContent': 'space-between', 'marginTop': '20px', 'marginBottom': '20px', 'flexWrap': 'wrap'}, children=[
+        html.Div(className="top-counties-container", style={'display': 'flex', 'justifyContent': 'space-between', 'marginTop': '0px', 'marginBottom': '20px', 'flexWrap': 'nowrap'}, children=[
             html.Div(className='card', style={'width': '48%'}, children=[
                 html.H4("Top Growing Counties"),
                 dash_table.DataTable(id='topcnt-table', fixed_rows={'headers': True},
