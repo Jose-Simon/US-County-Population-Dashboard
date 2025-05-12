@@ -90,8 +90,8 @@ FIPS,State,County,Year,Population
 02220,Alaska,Sitka City and Borough,2000,8835
 02230,Alaska,Skagway Municipality,2000,860
 02240,Alaska,Southeast Fairbanks Census Area,2000,6174
-02261,,,2000,10195
-02270,,,2000,7028
+02261,Alaska,Valdez-Cordova Census Area,2000,10195
+02270,Alaska,Wade Hampton Census Area,2000,7028
 02275,Alaska,Wrangell City and Borough,2000,2452
 02282,Alaska,Yakutat City and Borough,2000,808
 02290,Alaska,Yukon-Koyukuk Census Area,2000,6510
@@ -307,14 +307,14 @@ FIPS,State,County,Year,Population
 08121,Colorado,Washington County,2000,4922
 08123,Colorado,Weld County,2000,180766
 08125,Colorado,Yuma County,2000,9846
-09001,,,2000,882622
-09003,,,2000,857184
-09005,,,2000,182183
-09007,,,2000,155088
-09009,,,2000,823993
-09011,,,2000,259108
-09013,,,2000,136377
-09015,,,2000,109095
+09001,Connecticut,Fairfield County,2000,882622
+09003,Connecticut,Hartford County,2000,857184
+09005,Connecticut,Litchfield County,2000,182183
+09007,Connecticut,Middlesex County,2000,155088
+09009,Connecticut,New Haven County,2000,823993
+09011,Connecticut,New London County,2000,259108
+09013,Connecticut,Tolland County,2000,136377
+09015,Connecticut,Windham County,2000,109095
 10001,Delaware,Kent County,2000,126771
 10003,Delaware,New Castle County,2000,500294
 10005,Delaware,Sussex County,2000,156494
@@ -2416,7 +2416,7 @@ FIPS,State,County,Year,Population
 46107,South Dakota,Potter County,2000,2693
 46109,South Dakota,Roberts County,2000,10013
 46111,South Dakota,Sanborn County,2000,2676
-46113,,,2000,12466
+46113,South Dakota,Shannon County,2000,12466
 46115,South Dakota,Spink County,2000,7452
 46117,South Dakota,Stanley County,2000,2772
 46119,South Dakota,Sully County,2000,1553
@@ -2915,7 +2915,7 @@ FIPS,State,County,Year,Population
 51197,Virginia,Wythe County,2000,27601
 51199,Virginia,York County,2000,56748
 51510,Virginia,Alexandria city,2000,128278
-51515,,,2000,6421
+51515,Virginia,Bedford city,2000,6421
 51520,Virginia,Bristol city,2000,17346
 51530,Virginia,Buena Vista city,2000,6367
 51540,Virginia,Charlottesville city,2000,41280
@@ -3233,8 +3233,8 @@ FIPS,State,County,Year,Population
 02220,Alaska,Sitka City and Borough,2001,8727
 02230,Alaska,Skagway Municipality,2001,868
 02240,Alaska,Southeast Fairbanks Census Area,2001,5705
-02261,,,2001,10114
-02270,,,2001,7051
+02261,Alaska,Valdez-Cordova Census Area,2001,10114
+02270,Alaska,Wade Hampton Census Area,2001,7051
 02275,Alaska,Wrangell City and Borough,2001,2426
 02282,Alaska,Yakutat City and Borough,2001,764
 02290,Alaska,Yukon-Koyukuk Census Area,2001,6364
@@ -3450,14 +3450,14 @@ FIPS,State,County,Year,Population
 08121,Colorado,Washington County,2001,4874
 08123,Colorado,Weld County,2001,192278
 08125,Colorado,Yuma County,2001,9822
-09001,,,2001,889063
-09003,,,2001,862573
-09005,,,2001,184118
-09007,,,2001,157006
-09009,,,2001,829875
-09011,,,2001,261396
-09013,,,2001,138934
-09015,,,2001,109870
+09001,Connecticut,Fairfield County,2001,889063
+09003,Connecticut,Hartford County,2001,862573
+09005,Connecticut,Litchfield County,2001,184118
+09007,Connecticut,Middlesex County,2001,157006
+09009,Connecticut,New Haven County,2001,829875
+09011,Connecticut,New London County,2001,261396
+09013,Connecticut,Tolland County,2001,138934
+09015,Connecticut,Windham County,2001,109870
 10001,Delaware,Kent County,2001,129228
 10003,Delaware,New Castle County,2001,506026
 10005,Delaware,Sussex County,2001,160445
@@ -5559,7 +5559,7 @@ FIPS,State,County,Year,Population
 46107,South Dakota,Potter County,2001,2592
 46109,South Dakota,Roberts County,2001,10023
 46111,South Dakota,Sanborn County,2001,2553
-46113,,,2001,12602
+46113,South Dakota,Shannon County,2001,12602
 46115,South Dakota,Spink County,2001,7204
 46117,South Dakota,Stanley County,2001,2745
 46119,South Dakota,Sully County,2001,1533
@@ -6058,7 +6058,7 @@ FIPS,State,County,Year,Population
 51197,Virginia,Wythe County,2001,27585
 51199,Virginia,York County,2001,58651
 51510,Virginia,Alexandria city,2001,130932
-51515,,,2001,6400
+51515,Virginia,Bedford city,2001,6400
 51520,Virginia,Bristol city,2001,17330
 51530,Virginia,Buena Vista city,2001,6423
 51540,Virginia,Charlottesville city,2001,41436
@@ -6376,8 +6376,8 @@ FIPS,State,County,Year,Population
 02220,Alaska,Sitka City and Borough,2002,8874
 02230,Alaska,Skagway Municipality,2002,865
 02240,Alaska,Southeast Fairbanks Census Area,2002,5672
-02261,,,2002,10061
-02270,,,2002,7103
+02261,Alaska,Valdez-Cordova Census Area,2002,10061
+02270,Alaska,Wade Hampton Census Area,2002,7103
 02275,Alaska,Wrangell City and Borough,2002,2382
 02282,Alaska,Yakutat City and Borough,2002,702
 02290,Alaska,Yukon-Koyukuk Census Area,2002,6334
@@ -6593,14 +6593,14 @@ FIPS,State,County,Year,Population
 08121,Colorado,Washington County,2002,5035
 08123,Colorado,Weld County,2002,202234
 08125,Colorado,Yuma County,2002,9762
-09001,,,2002,892900
-09003,,,2002,867451
-09005,,,2002,185974
-09007,,,2002,159187
-09009,,,2002,835099
-09011,,,2002,264698
-09013,,,2002,142362
-09015,,,2002,111078
+09001,Connecticut,Fairfield County,2002,892900
+09003,Connecticut,Hartford County,2002,867451
+09005,Connecticut,Litchfield County,2002,185974
+09007,Connecticut,Middlesex County,2002,159187
+09009,Connecticut,New Haven County,2002,835099
+09011,Connecticut,New London County,2002,264698
+09013,Connecticut,Tolland County,2002,142362
+09015,Connecticut,Windham County,2002,111078
 10001,Delaware,Kent County,2002,131824
 10003,Delaware,New Castle County,2002,510158
 10005,Delaware,Sussex County,2002,164187
@@ -8702,7 +8702,7 @@ FIPS,State,County,Year,Population
 46107,South Dakota,Potter County,2002,2555
 46109,South Dakota,Roberts County,2002,9855
 46111,South Dakota,Sanborn County,2002,2538
-46113,,,2002,12872
+46113,South Dakota,Shannon County,2002,12872
 46115,South Dakota,Spink County,2002,7071
 46117,South Dakota,Stanley County,2002,2725
 46119,South Dakota,Sully County,2002,1487
@@ -9201,7 +9201,7 @@ FIPS,State,County,Year,Population
 51197,Virginia,Wythe County,2002,27710
 51199,Virginia,York County,2002,60126
 51510,Virginia,Alexandria city,2002,130614
-51515,,,2002,6320
+51515,Virginia,Bedford city,2002,6320
 51520,Virginia,Bristol city,2002,17087
 51530,Virginia,Buena Vista city,2002,6412
 51540,Virginia,Charlottesville city,2002,41449
@@ -9519,8 +9519,8 @@ FIPS,State,County,Year,Population
 02220,Alaska,Sitka City and Borough,2003,8881
 02230,Alaska,Skagway Municipality,2003,895
 02240,Alaska,Southeast Fairbanks Census Area,2003,5772
-02261,,,2003,9996
-02270,,,2003,7201
+02261,Alaska,Valdez-Cordova Census Area,2003,9996
+02270,Alaska,Wade Hampton Census Area,2003,7201
 02275,Alaska,Wrangell City and Borough,2003,2347
 02282,Alaska,Yakutat City and Borough,2003,673
 02290,Alaska,Yukon-Koyukuk Census Area,2003,6252
@@ -9736,14 +9736,14 @@ FIPS,State,County,Year,Population
 08121,Colorado,Washington County,2003,5028
 08123,Colorado,Weld County,2003,208858
 08125,Colorado,Yuma County,2003,9923
-09001,,,2003,896342
-09003,,,2003,873335
-09005,,,2003,187424
-09007,,,2003,160864
-09009,,,2003,841939
-09011,,,2003,266584
-09013,,,2003,145195
-09015,,,2003,112653
+09001,Connecticut,Fairfield County,2003,896342
+09003,Connecticut,Hartford County,2003,873335
+09005,Connecticut,Litchfield County,2003,187424
+09007,Connecticut,Middlesex County,2003,160864
+09009,Connecticut,New Haven County,2003,841939
+09011,Connecticut,New London County,2003,266584
+09013,Connecticut,Tolland County,2003,145195
+09015,Connecticut,Windham County,2003,112653
 10001,Delaware,Kent County,2003,134605
 10003,Delaware,New Castle County,2003,514769
 10005,Delaware,Sussex County,2003,168629
@@ -11845,7 +11845,7 @@ FIPS,State,County,Year,Population
 46107,South Dakota,Potter County,2003,2554
 46109,South Dakota,Roberts County,2003,9986
 46111,South Dakota,Sanborn County,2003,2567
-46113,,,2003,12993
+46113,South Dakota,Shannon County,2003,12993
 46115,South Dakota,Spink County,2003,6937
 46117,South Dakota,Stanley County,2003,2764
 46119,South Dakota,Sully County,2003,1436
@@ -12344,7 +12344,7 @@ FIPS,State,County,Year,Population
 51197,Virginia,Wythe County,2003,27859
 51199,Virginia,York County,2003,60620
 51510,Virginia,Alexandria city,2003,129421
-51515,,,2003,6237
+51515,Virginia,Bedford city,2003,6237
 51520,Virginia,Bristol city,2003,17465
 51530,Virginia,Buena Vista city,2003,6555
 51540,Virginia,Charlottesville city,2003,40695
@@ -12662,8 +12662,8 @@ FIPS,State,County,Year,Population
 02220,Alaska,Sitka City and Borough,2004,8890
 02230,Alaska,Skagway Municipality,2004,934
 02240,Alaska,Southeast Fairbanks Census Area,2004,6022
-02261,,,2004,9990
-02270,,,2004,7330
+02261,Alaska,Valdez-Cordova Census Area,2004,9990
+02270,Alaska,Wade Hampton Census Area,2004,7330
 02275,Alaska,Wrangell City and Borough,2004,2288
 02282,Alaska,Yakutat City and Borough,2004,647
 02290,Alaska,Yukon-Koyukuk Census Area,2004,6218
@@ -12879,14 +12879,14 @@ FIPS,State,County,Year,Population
 08121,Colorado,Washington County,2004,4923
 08123,Colorado,Weld County,2004,215322
 08125,Colorado,Yuma County,2004,9791
-09001,,,2004,897472
-09003,,,2004,874449
-09005,,,2004,188601
-09007,,,2004,161450
-09009,,,2004,844505
-09011,,,2004,268595
-09013,,,2004,146706
-09015,,,2004,114316
+09001,Connecticut,Fairfield County,2004,897472
+09003,Connecticut,Hartford County,2004,874449
+09005,Connecticut,Litchfield County,2004,188601
+09007,Connecticut,Middlesex County,2004,161450
+09009,Connecticut,New Haven County,2004,844505
+09011,Connecticut,New London County,2004,268595
+09013,Connecticut,Tolland County,2004,146706
+09015,Connecticut,Windham County,2004,114316
 10001,Delaware,Kent County,2004,139342
 10003,Delaware,New Castle County,2004,518944
 10005,Delaware,Sussex County,2004,172517
@@ -14988,7 +14988,7 @@ FIPS,State,County,Year,Population
 46107,South Dakota,Potter County,2004,2516
 46109,South Dakota,Roberts County,2004,10033
 46111,South Dakota,Sanborn County,2004,2541
-46113,,,2004,12983
+46113,South Dakota,Shannon County,2004,12983
 46115,South Dakota,Spink County,2004,6886
 46117,South Dakota,Stanley County,2004,2843
 46119,South Dakota,Sully County,2004,1410
@@ -15487,7 +15487,7 @@ FIPS,State,County,Year,Population
 51197,Virginia,Wythe County,2004,27947
 51199,Virginia,York County,2004,61926
 51510,Virginia,Alexandria city,2004,128765
-51515,,,2004,6198
+51515,Virginia,Bedford city,2004,6198
 51520,Virginia,Bristol city,2004,17536
 51530,Virginia,Buena Vista city,2004,6588
 51540,Virginia,Charlottesville city,2004,40281
@@ -15805,8 +15805,8 @@ FIPS,State,County,Year,Population
 02220,Alaska,Sitka City and Borough,2005,8994
 02230,Alaska,Skagway Municipality,2005,949
 02240,Alaska,Southeast Fairbanks Census Area,2005,6530
-02261,,,2005,9914
-02270,,,2005,7313
+02261,Alaska,Valdez-Cordova Census Area,2005,9914
+02270,Alaska,Wade Hampton Census Area,2005,7313
 02275,Alaska,Wrangell City and Borough,2005,2298
 02282,Alaska,Yakutat City and Borough,2005,665
 02290,Alaska,Yukon-Koyukuk Census Area,2005,6000
@@ -16022,14 +16022,14 @@ FIPS,State,County,Year,Population
 08121,Colorado,Washington County,2005,4912
 08123,Colorado,Weld County,2005,222879
 08125,Colorado,Yuma County,2005,9765
-09001,,,2005,897653
-09003,,,2005,878081
-09005,,,2005,188912
-09007,,,2005,162191
-09009,,,2005,847162
-09011,,,2005,269664
-09013,,,2005,147657
-09015,,,2005,115636
+09001,Connecticut,Fairfield County,2005,897653
+09003,Connecticut,Hartford County,2005,878081
+09005,Connecticut,Litchfield County,2005,188912
+09007,Connecticut,Middlesex County,2005,162191
+09009,Connecticut,New Haven County,2005,847162
+09011,Connecticut,New London County,2005,269664
+09013,Connecticut,Tolland County,2005,147657
+09015,Connecticut,Windham County,2005,115636
 10001,Delaware,Kent County,2005,144585
 10003,Delaware,New Castle County,2005,523343
 10005,Delaware,Sussex County,2005,177222
@@ -18131,7 +18131,7 @@ FIPS,State,County,Year,Population
 46107,South Dakota,Potter County,2005,2444
 46109,South Dakota,Roberts County,2005,9939
 46111,South Dakota,Sanborn County,2005,2457
-46113,,,2005,13150
+46113,South Dakota,Shannon County,2005,13150
 46115,South Dakota,Spink County,2005,6814
 46117,South Dakota,Stanley County,2005,2822
 46119,South Dakota,Sully County,2005,1407
@@ -18630,7 +18630,7 @@ FIPS,State,County,Year,Population
 51197,Virginia,Wythe County,2005,28349
 51199,Virginia,York County,2005,63076
 51510,Virginia,Alexandria city,2005,128181
-51515,,,2005,6186
+51515,Virginia,Bedford city,2005,6186
 51520,Virginia,Bristol city,2005,17493
 51530,Virginia,Buena Vista city,2005,6634
 51540,Virginia,Charlottesville city,2005,40597
@@ -18948,8 +18948,8 @@ FIPS,State,County,Year,Population
 02220,Alaska,Sitka City and Borough,2006,9046
 02230,Alaska,Skagway Municipality,2006,946
 02240,Alaska,Southeast Fairbanks Census Area,2006,6817
-02261,,,2006,9828
-02270,,,2006,7292
+02261,Alaska,Valdez-Cordova Census Area,2006,9828
+02270,Alaska,Wade Hampton Census Area,2006,7292
 02275,Alaska,Wrangell City and Borough,2006,2309
 02282,Alaska,Yakutat City and Borough,2006,642
 02290,Alaska,Yukon-Koyukuk Census Area,2006,5762
@@ -19165,14 +19165,14 @@ FIPS,State,County,Year,Population
 08121,Colorado,Washington County,2006,4907
 08123,Colorado,Weld County,2006,230703
 08125,Colorado,Yuma County,2006,9784
-09001,,,2006,896254
-09003,,,2006,881298
-09005,,,2006,189682
-09007,,,2006,163473
-09009,,,2006,850207
-09011,,,2006,270814
-09013,,,2006,148954
-09015,,,2006,116778
+09001,Connecticut,Fairfield County,2006,896254
+09003,Connecticut,Hartford County,2006,881298
+09005,Connecticut,Litchfield County,2006,189682
+09007,Connecticut,Middlesex County,2006,163473
+09009,Connecticut,New Haven County,2006,850207
+09011,Connecticut,New London County,2006,270814
+09013,Connecticut,Tolland County,2006,148954
+09015,Connecticut,Windham County,2006,116778
 10001,Delaware,Kent County,2006,149704
 10003,Delaware,New Castle County,2006,527174
 10005,Delaware,Sussex County,2006,182390
@@ -21274,7 +21274,7 @@ FIPS,State,County,Year,Population
 46107,South Dakota,Potter County,2006,2413
 46109,South Dakota,Roberts County,2006,9977
 46111,South Dakota,Sanborn County,2006,2410
-46113,,,2006,13404
+46113,South Dakota,Shannon County,2006,13404
 46115,South Dakota,Spink County,2006,6714
 46117,South Dakota,Stanley County,2006,2845
 46119,South Dakota,Sully County,2006,1422
@@ -21773,7 +21773,7 @@ FIPS,State,County,Year,Population
 51197,Virginia,Wythe County,2006,28628
 51199,Virginia,York County,2006,63912
 51510,Virginia,Alexandria city,2006,127676
-51515,,,2006,6147
+51515,Virginia,Bedford city,2006,6147
 51520,Virginia,Bristol city,2006,17684
 51530,Virginia,Buena Vista city,2006,6679
 51540,Virginia,Charlottesville city,2006,41066
@@ -22091,8 +22091,8 @@ FIPS,State,County,Year,Population
 02220,Alaska,Sitka City and Borough,2007,8851
 02230,Alaska,Skagway Municipality,2007,955
 02240,Alaska,Southeast Fairbanks Census Area,2007,6945
-02261,,,2007,9572
-02270,,,2007,7372
+02261,Alaska,Valdez-Cordova Census Area,2007,9572
+02270,Alaska,Wade Hampton Census Area,2007,7372
 02275,Alaska,Wrangell City and Borough,2007,2322
 02282,Alaska,Yakutat City and Borough,2007,656
 02290,Alaska,Yukon-Koyukuk Census Area,2007,5712
@@ -22308,14 +22308,14 @@ FIPS,State,County,Year,Population
 08121,Colorado,Washington County,2007,4883
 08123,Colorado,Weld County,2007,237692
 08125,Colorado,Yuma County,2007,9788
-09001,,,2007,897498
-09003,,,2007,884548
-09005,,,2007,189866
-09007,,,2007,164129
-09009,,,2007,853598
-09011,,,2007,270669
-09013,,,2007,149718
-09015,,,2007,117244
+09001,Connecticut,Fairfield County,2007,897498
+09003,Connecticut,Hartford County,2007,884548
+09005,Connecticut,Litchfield County,2007,189866
+09007,Connecticut,Middlesex County,2007,164129
+09009,Connecticut,New Haven County,2007,853598
+09011,Connecticut,New London County,2007,270669
+09013,Connecticut,Tolland County,2007,149718
+09015,Connecticut,Windham County,2007,117244
 10001,Delaware,Kent County,2007,153969
 10003,Delaware,New Castle County,2007,530555
 10005,Delaware,Sussex County,2007,187225
@@ -24417,7 +24417,7 @@ FIPS,State,County,Year,Population
 46107,South Dakota,Potter County,2007,2351
 46109,South Dakota,Roberts County,2007,9986
 46111,South Dakota,Sanborn County,2007,2395
-46113,,,2007,13345
+46113,South Dakota,Shannon County,2007,13345
 46115,South Dakota,Spink County,2007,6562
 46117,South Dakota,Stanley County,2007,2886
 46119,South Dakota,Sully County,2007,1436
@@ -24916,7 +24916,7 @@ FIPS,State,County,Year,Population
 51197,Virginia,Wythe County,2007,28827
 51199,Virginia,York County,2007,64710
 51510,Virginia,Alexandria city,2007,129175
-51515,,,2007,6169
+51515,Virginia,Bedford city,2007,6169
 51520,Virginia,Bristol city,2007,17540
 51530,Virginia,Buena Vista city,2007,6618
 51540,Virginia,Charlottesville city,2007,41538
@@ -25234,8 +25234,8 @@ FIPS,State,County,Year,Population
 02220,Alaska,Sitka City and Borough,2008,8835
 02230,Alaska,Skagway Municipality,2008,967
 02240,Alaska,Southeast Fairbanks Census Area,2008,6904
-02261,,,2008,9458
-02270,,,2008,7392
+02261,Alaska,Valdez-Cordova Census Area,2008,9458
+02270,Alaska,Wade Hampton Census Area,2008,7392
 02275,Alaska,Wrangell City and Borough,2008,2353
 02282,Alaska,Yakutat City and Borough,2008,627
 02290,Alaska,Yukon-Koyukuk Census Area,2008,5585
@@ -25451,14 +25451,14 @@ FIPS,State,County,Year,Population
 08121,Colorado,Washington County,2008,4792
 08123,Colorado,Weld County,2008,243442
 08125,Colorado,Yuma County,2008,9843
-09001,,,2008,903824
-09003,,,2008,887891
-09005,,,2008,190175
-09007,,,2008,164962
-09009,,,2008,856622
-09011,,,2008,272634
-09013,,,2008,151583
-09015,,,2008,117888
+09001,Connecticut,Fairfield County,2008,903824
+09003,Connecticut,Hartford County,2008,887891
+09005,Connecticut,Litchfield County,2008,190175
+09007,Connecticut,Middlesex County,2008,164962
+09009,Connecticut,New Haven County,2008,856622
+09011,Connecticut,New London County,2008,272634
+09013,Connecticut,Tolland County,2008,151583
+09015,Connecticut,Windham County,2008,117888
 10001,Delaware,Kent County,2008,157925
 10003,Delaware,New Castle County,2008,533958
 10005,Delaware,Sussex County,2008,191991
@@ -27560,7 +27560,7 @@ FIPS,State,County,Year,Population
 46107,South Dakota,Potter County,2008,2285
 46109,South Dakota,Roberts County,2008,9997
 46111,South Dakota,Sanborn County,2008,2374
-46113,,,2008,13368
+46113,South Dakota,Shannon County,2008,13368
 46115,South Dakota,Spink County,2008,6472
 46117,South Dakota,Stanley County,2008,2864
 46119,South Dakota,Sully County,2008,1375
@@ -28059,7 +28059,7 @@ FIPS,State,County,Year,Population
 51197,Virginia,Wythe County,2008,29123
 51199,Virginia,York County,2008,64944
 51510,Virginia,Alexandria city,2008,132949
-51515,,,2008,6150
+51515,Virginia,Bedford city,2008,6150
 51520,Virginia,Bristol city,2008,17631
 51530,Virginia,Buena Vista city,2008,6664
 51540,Virginia,Charlottesville city,2008,42130
@@ -28377,8 +28377,8 @@ FIPS,State,County,Year,Population
 02220,Alaska,Sitka City and Borough,2009,8844
 02230,Alaska,Skagway Municipality,2009,975
 02240,Alaska,Southeast Fairbanks Census Area,2009,6955
-02261,,,2009,9492
-02270,,,2009,7469
+02261,Alaska,Valdez-Cordova Census Area,2009,9492
+02270,Alaska,Wade Hampton Census Area,2009,7469
 02275,Alaska,Wrangell City and Borough,2009,2331
 02282,Alaska,Yakutat City and Borough,2009,665
 02290,Alaska,Yukon-Koyukuk Census Area,2009,5495
@@ -28594,14 +28594,14 @@ FIPS,State,County,Year,Population
 08121,Colorado,Washington County,2009,4800
 08123,Colorado,Weld County,2009,248193
 08125,Colorado,Yuma County,2009,10022
-09001,,,2009,910421
-09003,,,2009,891667
-09005,,,2009,190015
-09007,,,2009,165607
-09009,,,2009,860025
-09011,,,2009,273630
-09013,,,2009,152330
-09015,,,2009,118112
+09001,Connecticut,Fairfield County,2009,910421
+09003,Connecticut,Hartford County,2009,891667
+09005,Connecticut,Litchfield County,2009,190015
+09007,Connecticut,Middlesex County,2009,165607
+09009,Connecticut,New Haven County,2009,860025
+09011,Connecticut,New London County,2009,273630
+09013,Connecticut,Tolland County,2009,152330
+09015,Connecticut,Windham County,2009,118112
 10001,Delaware,Kent County,2009,160081
 10003,Delaware,New Castle County,2009,536898
 10005,Delaware,Sussex County,2009,194751
@@ -30703,7 +30703,7 @@ FIPS,State,County,Year,Population
 46107,South Dakota,Potter County,2009,2283
 46109,South Dakota,Roberts County,2009,10013
 46111,South Dakota,Sanborn County,2009,2367
-46113,,,2009,13425
+46113,South Dakota,Shannon County,2009,13425
 46115,South Dakota,Spink County,2009,6435
 46117,South Dakota,Stanley County,2009,2906
 46119,South Dakota,Sully County,2009,1367
@@ -31202,7 +31202,7 @@ FIPS,State,County,Year,Population
 51197,Virginia,Wythe County,2009,29216
 51199,Virginia,York County,2009,65197
 51510,Virginia,Alexandria city,2009,137523
-51515,,,2009,6174
+51515,Virginia,Bedford city,2009,6174
 51520,Virginia,Bristol city,2009,17842
 51530,Virginia,Buena Vista city,2009,6677
 51540,Virginia,Charlottesville city,2009,43054
@@ -31520,8 +31520,8 @@ FIPS,State,County,Year,Population
 02220,Alaska,Sitka City and Borough,2010,8881
 02230,Alaska,Skagway Municipality,2010,968
 02240,Alaska,Southeast Fairbanks Census Area,2010,7029
-02261,,,2010,9636
-02270,,,2010,7459
+02261,Alaska,Valdez-Cordova Census Area,2010,9636
+02270,Alaska,Wade Hampton Census Area,2010,7459
 02275,Alaska,Wrangell City and Borough,2010,2369
 02282,Alaska,Yakutat City and Borough,2010,662
 02290,Alaska,Yukon-Koyukuk Census Area,2010,5588
@@ -31737,14 +31737,14 @@ FIPS,State,County,Year,Population
 08121,Colorado,Washington County,2010,4814
 08123,Colorado,Weld County,2010,252825
 08125,Colorado,Yuma County,2010,10043
-09001,,,2010,916829
-09003,,,2010,894014
-09005,,,2010,189927
-09007,,,2010,165676
-09009,,,2010,862477
-09011,,,2010,274055
-09013,,,2010,152691
-09015,,,2010,118428
+09001,Connecticut,Fairfield County,2010,916829
+09003,Connecticut,Hartford County,2010,894014
+09005,Connecticut,Litchfield County,2010,189927
+09007,Connecticut,Middlesex County,2010,165676
+09009,Connecticut,New Haven County,2010,862477
+09011,Connecticut,New London County,2010,274055
+09013,Connecticut,Tolland County,2010,152691
+09015,Connecticut,Windham County,2010,118428
 10001,Delaware,Kent County,2010,162310
 10003,Delaware,New Castle County,2010,538479
 10005,Delaware,Sussex County,2010,197145
@@ -33846,7 +33846,7 @@ FIPS,State,County,Year,Population
 46107,South Dakota,Potter County,2010,2329
 46109,South Dakota,Roberts County,2010,10149
 46111,South Dakota,Sanborn County,2010,2355
-46113,,,2010,13586
+46113,South Dakota,Shannon County,2010,13586
 46115,South Dakota,Spink County,2010,6415
 46117,South Dakota,Stanley County,2010,2966
 46119,South Dakota,Sully County,2010,1373
@@ -34345,7 +34345,7 @@ FIPS,State,County,Year,Population
 51197,Virginia,Wythe County,2010,29235
 51199,Virginia,York County,2010,65464
 51510,Virginia,Alexandria city,2010,139966
-51515,,,2010,6222
+51515,Virginia,Bedford city,2010,6222
 51520,Virginia,Bristol city,2010,17835
 51530,Virginia,Buena Vista city,2010,6650
 51540,Virginia,Charlottesville city,2010,43475
@@ -34881,14 +34881,14 @@ FIPS,State,County,Year,Population
 08121,Colorado,Washington County,2011,4744
 08123,Colorado,Weld County,2011,258518
 08125,Colorado,Yuma County,2011,10131
-,Connecticut,Fairfield County,2011,929832
-,Connecticut,Hartford County,2011,898037
-,Connecticut,Litchfield County,2011,189633
-,Connecticut,Middlesex County,2011,166486
-,Connecticut,New Haven County,2011,865459
-,Connecticut,New London County,2011,273488
-,Connecticut,Tolland County,2011,152948
-,Connecticut,Windham County,2011,118298
+09001,Connecticut,Fairfield County,2011,929832
+09003,Connecticut,Hartford County,2011,898037
+09005,Connecticut,Litchfield County,2011,189633
+09007,Connecticut,Middlesex County,2011,166486
+09009,Connecticut,New Haven County,2011,865459
+09011,Connecticut,New London County,2011,273488
+09013,Connecticut,Tolland County,2011,152948
+09015,Connecticut,Windham County,2011,118298
 10001,Delaware,Kent County,2011,164988
 10003,Delaware,New Castle County,2011,543181
 10005,Delaware,Sussex County,2011,200051
@@ -38024,14 +38024,14 @@ FIPS,State,County,Year,Population
 08121,Colorado,Washington County,2012,4678
 08123,Colorado,Weld County,2012,263395
 08125,Colorado,Yuma County,2012,10095
-,Connecticut,Fairfield County,2012,938418
-,Connecticut,Hartford County,2012,899846
-,Connecticut,Litchfield County,2012,188770
-,Connecticut,Middlesex County,2012,166193
-,Connecticut,New Haven County,2012,867409
-,Connecticut,New London County,2012,274897
-,Connecticut,Tolland County,2012,151793
-,Connecticut,Windham County,2012,117889
+09001,Connecticut,Fairfield County,2012,938418
+09003,Connecticut,Hartford County,2012,899846
+09005,Connecticut,Litchfield County,2012,188770
+09007,Connecticut,Middlesex County,2012,166193
+09009,Connecticut,New Haven County,2012,867409
+09011,Connecticut,New London County,2012,274897
+09013,Connecticut,Tolland County,2012,151793
+09015,Connecticut,Windham County,2012,117889
 10001,Delaware,Kent County,2012,167056
 10003,Delaware,New Castle County,2012,547127
 10005,Delaware,Sussex County,2012,202471
@@ -41167,14 +41167,14 @@ FIPS,State,County,Year,Population
 08121,Colorado,Washington County,2013,4714
 08123,Colorado,Weld County,2013,269196
 08125,Colorado,Yuma County,2013,10121
-,Connecticut,Fairfield County,2013,944702
-,Connecticut,Hartford County,2013,900798
-,Connecticut,Litchfield County,2013,188569
-,Connecticut,Middlesex County,2013,166135
-,Connecticut,New Haven County,2013,866901
-,Connecticut,New London County,2013,274139
-,Connecticut,Tolland County,2013,151524
-,Connecticut,Windham County,2013,117470
+09001,Connecticut,Fairfield County,2013,944702
+09003,Connecticut,Hartford County,2013,900798
+09005,Connecticut,Litchfield County,2013,188569
+09007,Connecticut,Middlesex County,2013,166135
+09009,Connecticut,New Haven County,2013,866901
+09011,Connecticut,New London County,2013,274139
+09013,Connecticut,Tolland County,2013,151524
+09015,Connecticut,Windham County,2013,117470
 10001,Delaware,Kent County,2013,168691
 10003,Delaware,New Castle County,2013,551610
 10005,Delaware,Sussex County,2013,205403
@@ -44310,14 +44310,14 @@ FIPS,State,County,Year,Population
 08121,Colorado,Washington County,2014,4699
 08123,Colorado,Weld County,2014,276291
 08125,Colorado,Yuma County,2014,10168
-,Connecticut,Fairfield County,2014,950424
-,Connecticut,Hartford County,2014,901488
-,Connecticut,Litchfield County,2014,187606
-,Connecticut,Middlesex County,2014,165832
-,Connecticut,New Haven County,2014,868204
-,Connecticut,New London County,2014,272960
-,Connecticut,Tolland County,2014,151366
-,Connecticut,Windham County,2014,116704
+09001,Connecticut,Fairfield County,2014,950424
+09003,Connecticut,Hartford County,2014,901488
+09005,Connecticut,Litchfield County,2014,187606
+09007,Connecticut,Middlesex County,2014,165832
+09009,Connecticut,New Haven County,2014,868204
+09011,Connecticut,New London County,2014,272960
+09013,Connecticut,Tolland County,2014,151366
+09015,Connecticut,Windham County,2014,116704
 10001,Delaware,Kent County,2014,171009
 10003,Delaware,New Castle County,2014,555040
 10005,Delaware,Sussex County,2014,209229
@@ -47453,14 +47453,14 @@ FIPS,State,County,Year,Population
 08121,Colorado,Washington County,2015,4748
 08123,Colorado,Weld County,2015,285025
 08125,Colorado,Yuma County,2015,10016
-,Connecticut,Fairfield County,2015,952611
-,Connecticut,Hartford County,2015,901344
-,Connecticut,Litchfield County,2015,186921
-,Connecticut,Middlesex County,2015,165013
-,Connecticut,New Haven County,2015,866750
-,Connecticut,New London County,2015,271507
-,Connecticut,Tolland County,2015,151320
-,Connecticut,Windham County,2015,116425
+09001,Connecticut,Fairfield County,2015,952611
+09003,Connecticut,Hartford County,2015,901344
+09005,Connecticut,Litchfield County,2015,186921
+09007,Connecticut,Middlesex County,2015,165013
+09009,Connecticut,New Haven County,2015,866750
+09011,Connecticut,New London County,2015,271507
+09013,Connecticut,Tolland County,2015,151320
+09015,Connecticut,Windham County,2015,116425
 10001,Delaware,Kent County,2015,172578
 10003,Delaware,New Castle County,2015,558766
 10005,Delaware,Sussex County,2015,213372
@@ -50596,14 +50596,14 @@ FIPS,State,County,Year,Population
 08121,Colorado,Washington County,2016,4793
 08123,Colorado,Weld County,2016,294582
 08125,Colorado,Yuma County,2016,10024
-,Connecticut,Fairfield County,2016,953776
-,Connecticut,Hartford County,2016,899975
-,Connecticut,Litchfield County,2016,186112
-,Connecticut,Middlesex County,2016,164837
-,Connecticut,New Haven County,2016,865595
-,Connecticut,New London County,2016,270650
-,Connecticut,Tolland County,2016,150634
-,Connecticut,Windham County,2016,116035
+09001,Connecticut,Fairfield County,2016,953776
+09003,Connecticut,Hartford County,2016,899975
+09005,Connecticut,Litchfield County,2016,186112
+09007,Connecticut,Middlesex County,2016,164837
+09009,Connecticut,New Haven County,2016,865595
+09011,Connecticut,New London County,2016,270650
+09013,Connecticut,Tolland County,2016,150634
+09015,Connecticut,Windham County,2016,116035
 10001,Delaware,Kent County,2016,173906
 10003,Delaware,New Castle County,2016,561343
 10005,Delaware,Sussex County,2016,217897
@@ -53739,14 +53739,14 @@ FIPS,State,County,Year,Population
 08121,Colorado,Washington County,2017,4872
 08123,Colorado,Weld County,2017,304543
 08125,Colorado,Yuma County,2017,9937
-,Connecticut,Fairfield County,2017,954174
-,Connecticut,Hartford County,2017,899745
-,Connecticut,Litchfield County,2017,185518
-,Connecticut,Middlesex County,2017,164722
-,Connecticut,New Haven County,2017,866468
-,Connecticut,New London County,2017,270162
-,Connecticut,Tolland County,2017,150453
-,Connecticut,Windham County,2017,116308
+09001,Connecticut,Fairfield County,2017,954174
+09003,Connecticut,Hartford County,2017,899745
+09005,Connecticut,Litchfield County,2017,185518
+09007,Connecticut,Middlesex County,2017,164722
+09009,Connecticut,New Haven County,2017,866468
+09011,Connecticut,New London County,2017,270162
+09013,Connecticut,Tolland County,2017,150453
+09015,Connecticut,Windham County,2017,116308
 10001,Delaware,Kent County,2017,175745
 10003,Delaware,New Castle County,2017,563172
 10005,Delaware,Sussex County,2017,222687
@@ -56882,14 +56882,14 @@ FIPS,State,County,Year,Population
 08121,Colorado,Washington County,2018,4819
 08123,Colorado,Weld County,2018,313052
 08125,Colorado,Yuma County,2018,9920
-,Connecticut,Fairfield County,2018,956966
-,Connecticut,Hartford County,2018,900280
-,Connecticut,Litchfield County,2018,185474
-,Connecticut,Middlesex County,2018,164946
-,Connecticut,New Haven County,2018,866707
-,Connecticut,New London County,2018,269744
-,Connecticut,Tolland County,2018,150135
-,Connecticut,Windham County,2018,116977
+09001,Connecticut,Fairfield County,2018,956966
+09003,Connecticut,Hartford County,2018,900280
+09005,Connecticut,Litchfield County,2018,185474
+09007,Connecticut,Middlesex County,2018,164946
+09009,Connecticut,New Haven County,2018,866707
+09011,Connecticut,New London County,2018,269744
+09013,Connecticut,Tolland County,2018,150135
+09015,Connecticut,Windham County,2018,116977
 10001,Delaware,Kent County,2018,177806
 10003,Delaware,New Castle County,2018,565586
 10005,Delaware,Sussex County,2018,227760
@@ -60025,14 +60025,14 @@ FIPS,State,County,Year,Population
 08121,Colorado,Washington County,2019,4822
 08123,Colorado,Weld County,2019,322116
 08125,Colorado,Yuma County,2019,9971
-,Connecticut,Fairfield County,2019,957231
-,Connecticut,Hartford County,2019,899773
-,Connecticut,Litchfield County,2019,185242
-,Connecticut,Middlesex County,2019,164660
-,Connecticut,New Haven County,2019,864819
-,Connecticut,New London County,2019,268761
-,Connecticut,Tolland County,2019,149993
-,Connecticut,Windham County,2019,116654
+09001,Connecticut,Fairfield County,2019,957231
+09003,Connecticut,Hartford County,2019,899773
+09005,Connecticut,Litchfield County,2019,185242
+09007,Connecticut,Middlesex County,2019,164660
+09009,Connecticut,New Haven County,2019,864819
+09011,Connecticut,New London County,2019,268761
+09013,Connecticut,Tolland County,2019,149993
+09015,Connecticut,Windham County,2019,116654
 10001,Delaware,Kent County,2019,180204
 10003,Delaware,New Castle County,2019,568466
 10005,Delaware,Sussex County,2019,232670
@@ -63168,14 +63168,14 @@ FIPS,State,County,Year,Population
 08121,Colorado,Washington County,2020,4816
 08123,Colorado,Weld County,2020,328982
 08125,Colorado,Yuma County,2020,9981
-,Connecticut,Fairfield County,2020,957430
-,Connecticut,Hartford County,2020,899505
-,Connecticut,Litchfield County,2020,185178
-,Connecticut,Middlesex County,2020,164245
-,Connecticut,New Haven County,2020,864841
-,Connecticut,New London County,2020,268547
-,Connecticut,Tolland County,2020,149788
-,Connecticut,Windham County,2020,116417
+09001,Connecticut,Fairfield County,2020,957430
+09003,Connecticut,Hartford County,2020,899505
+09005,Connecticut,Litchfield County,2020,185178
+09007,Connecticut,Middlesex County,2020,164245
+09009,Connecticut,New Haven County,2020,864841
+09011,Connecticut,New London County,2020,268547
+09013,Connecticut,Tolland County,2020,149788
+09015,Connecticut,Windham County,2020,116417
 10001,Delaware,Kent County,2020,181852
 10003,Delaware,New Castle County,2020,570723
 10005,Delaware,Sussex County,2020,237376
