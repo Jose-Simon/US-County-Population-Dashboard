@@ -14,16 +14,19 @@ html, body {
 }
 
 /* Title Bar */
-.header-bar {
+.header-bar{
   background-color: #003366;
-  color: white;
-  font-size: 28px;
-  font-weight: 600;
-  padding: 12px 20px;
+  padding: 10px 10px;
   border-radius: 6px;
   text-align: left;
   margin-top: 0;
   margin-bottom: 0px;
+}
+
+.header-text {
+  color: white;
+  font-size: 28px;
+  font-weight: 600;
 }
 
 :root {

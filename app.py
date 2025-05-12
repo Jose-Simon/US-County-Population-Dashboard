@@ -31,7 +31,6 @@ df = df.dropna(subset=['FIPS', 'State', 'County', 'Year', 'Population'])
 
 county_to_fips = df[['FIPS', 'County', 'State']].drop_duplicates()
 county_to_fips['county_state'] = county_to_fips['County'] + ", " + county_to_fips['State']
-county_to_fips_sorted = county_to_fips.sort_values(by='county_state')
 county_state_to_fips_map = dict(zip(county_to_fips['county_state'], county_to_fips['FIPS']))
 
 # 3. Load GeoJSON
@@ -43,8 +42,8 @@ print("CSV and GeoJSON loaded successfully. Dataframe shape:", df.shape)
 # 4. Build the state and county options
 state_options = [{'label': state, 'value': state} for state in sorted(df['State'].dropna().astype(str).unique())]
 county_options = [
-    {'label': row['county_state'], 'value': row['FIPS']}
-    for _, row in county_to_fips_sorted.iterrows()
+    {'label': f"{row['County']}, {row['State']}", 'value': row['FIPS']}
+    for _, row in df[['FIPS', 'County', 'State']].drop_duplicates().iterrows()
 ]
 
 # 5. Define Population Groups
@@ -69,8 +68,17 @@ server = app.server
 # ----------------------------------------------------------------------------
 
 app.layout = html.Div(style={'padding': '10px'}, children=[
-
-    html.H1(id='dashboard-title', className="header-bar"),
+    html.Div(className="header-bar", style={'display': 'flex', 'justifyContent': 'space-between', 'alignItems': 'center'}, children=[
+		html.H1(id='dashboard-title', className="header-text", style={'margin': 0}),
+		html.Div(id="background-loading-indicator", children=[
+			dcc.Loading(
+				type="circle",
+				children=html.Div([
+					html.Div(id="loading-placeholder", style={'width': '50px', 'height': '20px', 'marginRight': '20px'})
+				])
+			)
+		])
+	]),
 
     html.Div(className='filter-bar', children=[
         html.Div(className='filter-item', children=[
@@ -167,7 +175,7 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
             )
         ])
     ]),
-
+    
     html.Div(id="summary-banner", className="summary-container"),
     
     html.Div(className='main-content-section', children=[
@@ -260,6 +268,7 @@ def update_title(start_year, end_year):
     Output('bottomcnt-table', 'data'),
     Output('bottomcnt-table', 'columns'),
     Output('filtered-data', 'data'),
+    Output('loading-placeholder', 'children'),
     Input('start-year-dropdown', 'value'),
     Input('end-year-dropdown', 'value'),
     Input('metric-radio', 'value'),
@@ -403,14 +412,14 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
                 f"{states_count:,} (",
 
                 html.Span([
-                    f"{states_increasing_count:,}",
+                    f"{states_increasing_count:,} ",
                     html.Span("▲", className="change-up")
                 ], title=growing_tooltip, style={'cursor': 'help'}),
 
                 "   ",
 
                 html.Span([
-                    f"{states_decreasing_count:,}",
+                    f"{states_decreasing_count:,} ",
                     html.Span("▼", className="change-down")
                 ], title=declining_tooltip, style={'cursor': 'help'}),
 
@@ -524,7 +533,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     bottomcnt['percent_diff'] = pd.to_numeric(bottomcnt['percent_diff'], errors='coerce') \
         .apply(lambda x: f"{x:+.2f}%" if pd.notnull(x) else "")
 
-    return summary, fig, topcnt.to_dict('records'), columns, bottomcnt.to_dict('records'), columns, merged.to_dict('records')
+    return summary, fig, topcnt.to_dict('records'), columns, bottomcnt.to_dict('records'), columns, merged.to_dict('records'), html.Span()
 
 # ----------------------------------------------------------------------------
 # Callback for County detail
