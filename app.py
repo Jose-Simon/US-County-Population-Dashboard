@@ -361,8 +361,8 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         sorted_growing = state_summary[state_summary['is_increasing']].nlargest(10, 'percent_diff')
         sorted_declining = state_summary[~state_summary['is_increasing']].nsmallest(10, 'percent_diff')
 
-    growing_tooltip = "Growing: " + ", ".join(sorted_growing['State'].tolist()) if len(sorted_growing) <= 10 else ""
-    declining_tooltip = "Declining: " + ", ".join(sorted_declining['State'].tolist()) if len(sorted_declining) <= 10 else ""
+    growing_tooltip = "Top Growing States:\n" + ", ".join(sorted_growing['State'].tolist())
+    declining_tooltip = "Top Declining States:\n" + ", ".join(sorted_declining['State'].tolist())
   
     # Summary banner calculation
     summary = [
@@ -386,14 +386,33 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         ], className="summary-card"),
 
         html.Div([
-            html.H4("States Displayed"),
+            html.H4([
+                "States Displayed",
+                html.Span(
+                    "ⓘ",
+                    title="Hover over the growing or declining numbers below to see the top states",
+                    style={
+                        'cursor': 'help',
+                        'fontSize': '14px',
+                        'marginLeft': '4px'
+                    }
+                )
+            ]),
             html.H2([
                 f"{states_count:,} (",
-                f"{states_increasing_count:,}",
-                html.Span("▲", className="change-up", title=growing_tooltip),
+
+                html.Span([
+                    f"{states_increasing_count:,} ",
+                    html.Span("▲", className="change-up")
+                ], title=growing_tooltip, style={'cursor': 'help'}),
+
                 "   ",
-                f"{states_decreasing_count:,}",
-                html.Span("▼", className="change-down", title=declining_tooltip),
+
+                html.Span([
+                    f"{states_decreasing_count:,} ",
+                    html.Span("▼", className="change-down")
+                ], title=declining_tooltip, style={'cursor': 'help'}),
+
                 ")"
             ])
         ], className="summary-card"),
