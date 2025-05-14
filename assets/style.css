@@ -147,6 +147,7 @@ footer.footer a {
 
 .top-counties-container h4 {
   font-size: 18px;
+  margin-top: 2px;
 }
 
 @media (max-width: 1600px) {
