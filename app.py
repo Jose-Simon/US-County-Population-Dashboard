@@ -205,7 +205,7 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
             html.Div(className='card', style={'width': '48%'}, children=[
                 html.H4("Top Growing Counties"),
                 dash_table.DataTable(id='topcnt-table', fixed_rows={'headers': True},
-                    style_table={'height': '380px', 'overflowY': 'auto'},
+                    style_table={'height': '360px', 'overflowY': 'auto'},
                     style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right', 'padding': '0px 12px'},
                     style_header={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
                     style_cell_conditional=[
@@ -216,7 +216,7 @@ app.layout = html.Div(style={'padding': '10px'}, children=[
             html.Div(className='card', style={'width': '48%'}, children=[
                 html.H4("Top Declining Counties"),
                 dash_table.DataTable(id='bottomcnt-table', fixed_rows={'headers': True},
-                    style_table={'height': '380px', 'overflowY': 'auto'},
+                    style_table={'height': '360px', 'overflowY': 'auto'},
                     style_cell={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontSize': '14px', 'textAlign': 'right', 'padding': '0px 12px'},
                     style_header={'fontFamily': 'Roboto, Arial, Helvetica, sans-serif', 'fontWeight': 'bold', 'backgroundColor': '#003366', 'color': 'white'},
                     style_cell_conditional=[
