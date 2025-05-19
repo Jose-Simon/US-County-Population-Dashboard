@@ -502,7 +502,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
     fig.update_layout(
         margin={"r":0,"t":0,"l":0,"b":0},
         coloraxis_colorbar=dict(
-            title=dict(text='Change', font=dict(family="Roboto, Arial, Helvetica, sans-serif", size=14, color="#333333")),
+            title=dict(text=label_text, font=dict(family="Roboto, Arial, Helvetica, sans-serif", size=14, color="#333333")),
             tickfont=dict(family="Roboto, Arial, Helvetica, sans-serif", size=12, color="#333333")
         )
     )
