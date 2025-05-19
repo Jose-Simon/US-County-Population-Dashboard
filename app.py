@@ -471,6 +471,9 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         color_field = 'numeric_diff'
         range_min, range_max = -q_max, q_max
 
+    # Determine label based on metric_type
+    label_text = "Change" if metric_type == "numeric_diff" else "Change %"
+
     fig = px.choropleth(
         merged,
         geojson=counties_geojson,
@@ -480,7 +483,7 @@ def update_dashboard(start_year, end_year, metric_type, selected_states, selecte
         color_continuous_scale='RdBu', #RdYlBu
         range_color=[range_min, range_max],
         scope="usa",
-        labels={metric_type: 'Change'}
+        labels={metric_type: label_text}
     )
     
     fig.update_traces(
